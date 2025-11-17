@@ -5,4 +5,5 @@ export interface Category {
   description?: string;
   created_at?: string;
   updated_at?: string;
+  influencers_count?: number;
 }

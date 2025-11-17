@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import type { Campaign, CampaignFormData } from "../../types/campaign";
 import type { Category } from "../../types/category";
 import { categoryService } from "../../services/category.service";
+import { getImageUrl } from "../../services/api";
 
 type Errors = Record<string, string[]>;
 
@@ -43,6 +44,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
   // Temporary input states
   const [keyMessageInput, setKeyMessageInput] = useState("");
   const [hashtagInput, setHashtagInput] = useState("");
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   // Categories state
   const [categories, setCategories] = useState<Category[]>([]);
@@ -52,7 +54,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const data = await categoryService.getAll();
+        const data = await categoryService.getAllPublic();
         setCategories(data);
       } catch (error) {
         console.error("Failed to load categories:", error);
@@ -62,6 +64,16 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
     };
     fetchCategories();
   }, []);
+
+  // Load existing image when editing
+  useEffect(() => {
+    if (campaign?.image) {
+      const imageUrl = getImageUrl(campaign.image);
+      if (imageUrl) {
+        setImagePreview(imageUrl);
+      }
+    }
+  }, [campaign?.image]);
 
   // Auto-populate categories when editing campaign
   useEffect(() => {
@@ -162,6 +174,25 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
     }));
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Create preview and convert to base64
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        setImagePreview(base64String);
+        setFormData((prev) => ({ ...prev, image: base64String }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setFormData((prev) => ({ ...prev, image: null }));
+    setImagePreview(null);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await onSubmit(formData);
@@ -218,6 +249,58 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
             />
             <FieldError messages={errors.description} />
+          </div>
+
+          {/* Campaign Image */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Campaign Image</label>
+            {imagePreview ? (
+              <div className="relative">
+                <div className="relative w-full h-48 rounded-lg border-2 border-gray-200 dark:border-gray-700 overflow-hidden">
+                  <img src={imagePreview} alt="Campaign Preview" className="w-full h-full object-cover" />
+                  <button
+                    type="button"
+                    onClick={handleRemoveImage}
+                    className="absolute top-2 right-2 p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors shadow-lg">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+                <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                  Click the × button to remove and upload a different image
+                </p>
+              </div>
+            ) : (
+              <div>
+                <label
+                  htmlFor="campaign-image-upload"
+                  className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                    <svg className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                      />
+                    </svg>
+                    <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                      <span className="font-semibold">Click to upload</span> or drag and drop
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, JPEG (MAX. 2MB)</p>
+                  </div>
+                  <input
+                    id="campaign-image-upload"
+                    type="file"
+                    className="hidden"
+                    accept="image/png,image/jpeg,image/jpg"
+                    onChange={handleImageChange}
+                  />
+                </label>
+              </div>
+            )}
+            <FieldError messages={errors.image} />
           </div>
         </div>
       </div>

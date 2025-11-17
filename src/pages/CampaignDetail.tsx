@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { campaignService } from "../services/campaign.service";
+import { getImageUrl } from "../services/api";
 import type { Campaign } from "../types/campaign";
 
 const CampaignDetail: React.FC = () => {
@@ -111,6 +112,20 @@ const CampaignDetail: React.FC = () => {
           {campaign.status.charAt(0).toUpperCase() + campaign.status.slice(1)}
         </span>
       </div>
+
+      {/* Campaign Image */}
+      {campaign.image && (
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Campaign Image</h2>
+          <div className="relative w-full rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+            <img
+              src={getImageUrl(campaign.image) || campaign.image}
+              alt={campaign.campaign_name}
+              className="w-full h-auto max-h-96 object-contain bg-gray-50 dark:bg-gray-800"
+            />
+          </div>
+        </div>
+      )}
 
       {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

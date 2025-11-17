@@ -29,7 +29,7 @@ const InfluencerForm: React.FC<InfluencerFormProps> = ({ influencer, onSubmit, i
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const data = await categoryService.getAll();
+        const data = await categoryService.getAllPublic();
         setCategories(data);
       } catch (error) {
         console.error("Failed to load categories:", error);

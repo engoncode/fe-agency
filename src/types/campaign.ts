@@ -32,6 +32,7 @@ export interface Campaign {
   updated_at: string;
   platform_deliverables?: PlatformDeliverable[];
   categories?: Array<{ id: number; name: string }>;
+  image?: string | null;
 }
 
 export interface CampaignFormData {
@@ -51,6 +52,7 @@ export interface CampaignFormData {
   status: "draft" | "upcoming" | "active" | "expired";
   platform_deliverables?: PlatformDeliverable[];
   kategori_campaign?: number[];
+  image?: string | null; // base64 string
 }
 
 export interface CampaignFilters {

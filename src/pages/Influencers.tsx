@@ -39,7 +39,7 @@ const Influencers: React.FC = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const categoriesData = await categoryService.getAll();
+        const categoriesData = await categoryService.getAllPublic();
         setCategories(categoriesData);
       } catch (error) {
         console.error("Failed to fetch categories:", error);

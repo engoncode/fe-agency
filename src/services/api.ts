@@ -24,4 +24,18 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Helper function to get full image URL
+export const getImageUrl = (imagePath: string | null | undefined): string | null => {
+  if (!imagePath) return null;
+
+  // If already a full URL (base64 or http/https), return as is
+  if (imagePath.startsWith("data:") || imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
+    return imagePath;
+  }
+
+  // Construct full URL from backend storage
+  const baseURL = "https://dev.stpi.co.id";
+  return `${baseURL}/storage/${imagePath}`;
+};
+
 export default api;

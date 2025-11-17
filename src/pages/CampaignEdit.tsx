@@ -40,7 +40,7 @@ const CampaignEdit: React.FC = () => {
       setErrors({});
       await campaignService.update(parseInt(id), data);
       alert("Campaign updated successfully!");
-      navigate(`/campaigns/${id}`);
+      navigate("/campaigns");
     } catch (error: any) {
       console.error("Failed to update campaign:", error);
       if (error.response && error.response.status === 422) {
