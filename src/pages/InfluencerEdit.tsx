@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import { influencerService } from "../services/influencer.service";
 import type { Influencer, InfluencerFormData } from "../types/influencer";
 import InfluencerForm from "../components/influencers/InfluencerForm";
+import { useNotification } from "../components/notifications/NotificationProvider";
 
 const InfluencerEdit: React.FC = () => {
   const navigate = useNavigate();
@@ -11,6 +12,9 @@ const InfluencerEdit: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string[]>>({});
+
+  // Toast notifications
+  const { showSuccess, showError } = useNotification();
 
   useEffect(() => {
     if (id) {
@@ -25,7 +29,7 @@ const InfluencerEdit: React.FC = () => {
       setInfluencer(data);
     } catch (error) {
       console.error("Failed to fetch influencer:", error);
-      alert("Influencer not found");
+      showError("Error", "Influencer not found");
       navigate("/influencers");
     } finally {
       setLoading(false);
@@ -39,14 +43,15 @@ const InfluencerEdit: React.FC = () => {
       setSubmitting(true);
       setErrors({});
       await influencerService.update(parseInt(id), data);
-      alert("Influencer updated successfully!");
+      showSuccess("Success", "Influencer updated successfully!");
       navigate("/influencers");
     } catch (error: any) {
       console.error("Failed to update influencer:", error);
       if (error.response?.status === 422 && error.response?.data?.errors) {
         setErrors(error.response.data.errors);
       } else {
-        alert(error.response?.data?.message || "Failed to update influencer");
+        const errorMessage = error.response?.data?.message || "Failed to update influencer";
+        showError("Error", errorMessage);
       }
     } finally {
       setSubmitting(false);

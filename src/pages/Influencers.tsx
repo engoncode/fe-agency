@@ -4,6 +4,8 @@ import { influencerService } from "../services/influencer.service";
 import { categoryService } from "../services/category.service";
 import type { Influencer, InfluencerMeta } from "../types/influencer";
 import type { Category } from "../types/category";
+import { useNotification } from "../components/notifications/NotificationProvider";
+import ConfirmationDialog from "../components/notifications/ConfirmationDialog";
 
 const Influencers: React.FC = () => {
   const navigate = useNavigate();
@@ -16,6 +18,26 @@ const Influencers: React.FC = () => {
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState<Category[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+
+  // Confirmation dialog for delete
+  const [confirmationDialog, setConfirmationDialog] = useState<{
+    isOpen: boolean;
+    title: string;
+    message: string;
+    onConfirm: () => void;
+    type?: "success" | "warning" | "error" | "info";
+    isLoading?: boolean;
+  }>({
+    isOpen: false,
+    title: "",
+    message: "",
+    onConfirm: () => {},
+    type: "warning",
+    isLoading: false,
+  });
+
+  // Toast notifications
+  const { showSuccess, showError } = useNotification();
 
   const fetchInfluencers = async (page = 1) => {
     try {
@@ -58,14 +80,43 @@ const Influencers: React.FC = () => {
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm("Delete this influencer?")) return;
-    try {
-      await influencerService.delete(id);
-      fetchInfluencers(currentPage);
-    } catch (error) {
-      console.error("Failed to delete influencer:", error);
-      alert("Failed to delete influencer");
-    }
+    const performDelete = async () => {
+      // Set loading state
+      setConfirmationDialog((prev) => ({ ...prev, isLoading: true }));
+
+      try {
+        await influencerService.delete(id);
+        showSuccess("Success", "Influencer deleted successfully!");
+        fetchInfluencers(currentPage);
+        // Close modal after successful response
+        setConfirmationDialog((prev) => ({ ...prev, isOpen: false, isLoading: false }));
+      } catch (error: any) {
+        console.error("Failed to delete influencer:", error);
+        // Extract error message from response if available
+        let errorMessage = "Failed to delete influencer";
+        if (error?.response?.data?.message) {
+          errorMessage = error.response.data.message;
+        } else if (error?.message) {
+          errorMessage = error.message;
+        }
+        showError("Error", errorMessage);
+        // Close modal on error too, but keep loading false
+        setConfirmationDialog((prev) => ({ ...prev, isOpen: false, isLoading: false }));
+      }
+    };
+
+    setConfirmationDialog({
+      isOpen: true,
+      title: "Delete Influencer",
+      message: "Are you sure you want to delete this influencer? This action cannot be undone.",
+      onConfirm: performDelete,
+      type: "error",
+      isLoading: false,
+    });
+  };
+
+  const handleCloseConfirmation = () => {
+    setConfirmationDialog((prev) => ({ ...prev, isOpen: false, isLoading: false }));
   };
 
   const handlePageChange = (newPage: number) => {
@@ -351,6 +402,17 @@ const Influencers: React.FC = () => {
           </>
         )}
       </div>
+
+      {/* Confirmation Dialog */}
+      <ConfirmationDialog
+        isOpen={confirmationDialog.isOpen}
+        title={confirmationDialog.title}
+        message={confirmationDialog.message}
+        onConfirm={confirmationDialog.onConfirm}
+        onCancel={handleCloseConfirmation}
+        type={confirmationDialog.type}
+        isLoading={confirmationDialog.isLoading}
+      />
     </div>
   );
 };

@@ -19,17 +19,19 @@ import InfluencerCreate from "./pages/InfluencerCreate";
 import InfluencerDetail from "./pages/InfluencerDetail";
 import InfluencerEdit from "./pages/InfluencerEdit";
 import InfluencerCategories from "./pages/InfluencerCategories";
+import Posts from "./pages/Posts";
 import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import Home from "./pages/Dashboard/Home";
 import { useAuthStore } from "./stores/authStore";
+import { NotificationProvider } from "./components/notifications/NotificationProvider";
 
 export default function App() {
   const { isAuthenticated } = useAuthStore();
 
   return (
-    <>
+    <NotificationProvider>
       <Router>
         <ScrollToTop />
         <Routes>
@@ -59,6 +61,7 @@ export default function App() {
             <Route path="/influencers/:id" element={<InfluencerDetail />} />
             <Route path="/influencers/:id/edit" element={<InfluencerEdit />} />
             <Route path="/influencer-categories" element={<InfluencerCategories />} />
+            <Route path="/posts" element={<Posts />} />
 
             {/* Others Page */}
             <Route path="/profile" element={<UserProfiles />} />
@@ -76,6 +79,6 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
-    </>
+    </NotificationProvider>
   );
 }

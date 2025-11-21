@@ -4,6 +4,8 @@ import CampaignList from "../components/campaigns/CampaignList";
 import StatusCards from "../components/campaigns/StatusCards";
 import { campaignService } from "../services/campaign.service";
 import type { Campaign, CampaignMeta } from "../types/campaign";
+import { useNotification } from "../components/notifications/NotificationProvider";
+import ConfirmationDialog from "../components/notifications/ConfirmationDialog";
 
 const Campaigns: React.FC = () => {
   const navigate = useNavigate();
@@ -15,6 +17,26 @@ const Campaigns: React.FC = () => {
   const [statusFilter, setStatusFilter] = useState<"" | "draft" | "upcoming" | "active" | "expired">("");
   const [sortFilter, setSortFilter] = useState<"newest" | "oldest">("newest");
   const [currentPage, setCurrentPage] = useState(1);
+
+  // Confirmation dialog for delete
+  const [confirmationDialog, setConfirmationDialog] = useState<{
+    isOpen: boolean;
+    title: string;
+    message: string;
+    onConfirm: () => void;
+    type?: "success" | "warning" | "error" | "info";
+    isLoading?: boolean;
+  }>({
+    isOpen: false,
+    title: "",
+    message: "",
+    onConfirm: () => {},
+    type: "warning",
+    isLoading: false,
+  });
+
+  // Toast notifications
+  const { showSuccess, showError } = useNotification();
 
   const fetchCampaigns = async (page = 1) => {
     try {
@@ -54,13 +76,43 @@ const Campaigns: React.FC = () => {
   };
 
   const handleDelete = async (id: number) => {
-    try {
-      await campaignService.delete(id);
-      fetchCampaigns(currentPage);
-    } catch (error) {
-      console.error("Failed to delete campaign:", error);
-      alert("Failed to delete campaign");
-    }
+    const performDelete = async () => {
+      // Set loading state
+      setConfirmationDialog((prev) => ({ ...prev, isLoading: true }));
+
+      try {
+        await campaignService.delete(id);
+        showSuccess("Success", "Campaign deleted successfully!");
+        fetchCampaigns(currentPage);
+        // Close modal after successful response
+        setConfirmationDialog((prev) => ({ ...prev, isOpen: false, isLoading: false }));
+      } catch (error: any) {
+        console.error("Failed to delete campaign:", error);
+        // Extract error message from response if available
+        let errorMessage = "Failed to delete campaign";
+        if (error?.response?.data?.message) {
+          errorMessage = error.response.data.message;
+        } else if (error?.message) {
+          errorMessage = error.message;
+        }
+        showError("Error", errorMessage);
+        // Close modal on error too, but keep loading false
+        setConfirmationDialog((prev) => ({ ...prev, isOpen: false, isLoading: false }));
+      }
+    };
+
+    setConfirmationDialog({
+      isOpen: true,
+      title: "Delete Campaign",
+      message: "Are you sure you want to delete this campaign? This action cannot be undone.",
+      onConfirm: performDelete,
+      type: "error",
+      isLoading: false,
+    });
+  };
+
+  const handleCloseConfirmation = () => {
+    setConfirmationDialog((prev) => ({ ...prev, isOpen: false, isLoading: false }));
   };
 
   const handlePageChange = (newPage: number) => {
@@ -201,6 +253,17 @@ const Campaigns: React.FC = () => {
           </>
         )}
       </div>
+
+      {/* Confirmation Dialog */}
+      <ConfirmationDialog
+        isOpen={confirmationDialog.isOpen}
+        title={confirmationDialog.title}
+        message={confirmationDialog.message}
+        onConfirm={confirmationDialog.onConfirm}
+        onCancel={handleCloseConfirmation}
+        type={confirmationDialog.type}
+        isLoading={confirmationDialog.isLoading}
+      />
     </div>
   );
 };

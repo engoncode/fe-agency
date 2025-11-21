@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import CampaignForm from "../components/campaigns/CampaignForm";
 import { campaignService } from "../services/campaign.service";
 import type { Campaign, CampaignFormData } from "../types/campaign";
+import { useNotification } from "../components/notifications/NotificationProvider";
 
 const CampaignEdit: React.FC = () => {
   const navigate = useNavigate();
@@ -11,6 +12,9 @@ const CampaignEdit: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [errors, setErrors] = useState<Record<string, string[]>>({});
+
+  // Toast notifications
+  const { showSuccess, showError } = useNotification();
 
   useEffect(() => {
     if (id) {
@@ -25,7 +29,7 @@ const CampaignEdit: React.FC = () => {
       setCampaign(response);
     } catch (error) {
       console.error("Failed to fetch campaign:", error);
-      alert("Campaign not found");
+      showError("Error", "Campaign not found");
       navigate("/campaigns");
     } finally {
       setLoading(false);
@@ -39,14 +43,16 @@ const CampaignEdit: React.FC = () => {
       setSaving(true);
       setErrors({});
       await campaignService.update(parseInt(id), data);
-      alert("Campaign updated successfully!");
+      showSuccess("Success", "Campaign updated successfully!");
       navigate("/campaigns");
     } catch (error: any) {
       console.error("Failed to update campaign:", error);
       if (error.response && error.response.status === 422) {
         setErrors(error.response.data.errors);
       } else {
-        alert("Failed to update campaign. Please check the console for details.");
+        const errorMessage =
+          error.response?.data?.message || "Failed to update campaign. Please check the console for details.";
+        showError("Error", errorMessage);
       }
     } finally {
       setSaving(false);

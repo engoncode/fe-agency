@@ -3,25 +3,31 @@ import { useNavigate } from "react-router";
 import CampaignForm from "../components/campaigns/CampaignForm";
 import { campaignService } from "../services/campaign.service";
 import type { CampaignFormData } from "../types/campaign";
+import { useNotification } from "../components/notifications/NotificationProvider";
 
 const CampaignCreate: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<Record<string, string[]>>({});
 
+  // Toast notifications
+  const { showSuccess, showError } = useNotification();
+
   const handleSubmit = async (data: CampaignFormData) => {
     try {
       setLoading(true);
       setErrors({});
       await campaignService.create(data);
-      alert("Campaign created successfully!");
+      showSuccess("Success", "Campaign created successfully!");
       navigate("/campaigns");
     } catch (error: any) {
       console.error("Failed to create campaign:", error);
       if (error.response && error.response.status === 422) {
         setErrors(error.response.data.errors);
       } else {
-        alert("Failed to create campaign. Please check the console for details.");
+        const errorMessage =
+          error.response?.data?.message || "Failed to create campaign. Please check the console for details.";
+        showError("Error", errorMessage);
       }
     } finally {
       setLoading(false);
