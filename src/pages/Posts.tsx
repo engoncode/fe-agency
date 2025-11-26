@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PostsTable from "../components/posts/PostsTable";
 import { postService } from "../services/post.service";
+import { campaignService } from "../services/campaign.service";
 import type { Post, PostMeta } from "../types/post";
+import type { Campaign } from "../types/campaign";
 import { useNotification } from "../components/notifications/NotificationProvider";
 import ConfirmationDialog from "../components/notifications/ConfirmationDialog";
 
@@ -10,6 +12,9 @@ const Posts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [meta, setMeta] = useState<PostMeta | null>(null);
   const [loading, setLoading] = useState(true);
+
+  // Campaigns for select
+  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
 
   // Filters
   const [campaignId, setCampaignId] = useState("");
@@ -62,6 +67,22 @@ const Posts: React.FC = () => {
   useEffect(() => {
     fetchPosts(1);
   }, [campaignId, influencerName, statusFilter, platformFilter]);
+
+  // load only active campaigns for the Campaign select
+  useEffect(() => {
+    const loadCampaigns = async () => {
+      try {
+        const res = await campaignService.getAll({ page: 1, per_page: 20, status: "active" });
+        // campaignService.getAll returns { meta, data }
+        setCampaigns(res.data || res);
+      } catch (err) {
+        console.error("Failed to load campaigns for select:", err);
+        setCampaigns([]);
+      }
+    };
+
+    loadCampaigns();
+  }, []);
 
   const handleUpdateStatus = async (id: number, status: "pending" | "approved" | "rejected") => {
     const performUpdate = async () => {
@@ -123,14 +144,18 @@ const Posts: React.FC = () => {
       <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Campaign ID</label>
-            <input
-              type="number"
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Campaign</label>
+            <select
               value={campaignId}
               onChange={(e) => setCampaignId(e.target.value)}
-              placeholder="Enter campaign ID"
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-            />
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white">
+              <option value="">All Campaigns</option>
+              {campaigns.map((c) => (
+                <option key={c.id} value={String(c.id)}>
+                  {c.campaign_name}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Influencer Name</label>

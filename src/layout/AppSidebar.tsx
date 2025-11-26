@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
 
 // Assume these icons are imported from an icon library
-import { ChevronDownIcon, GridIcon, HorizontaLDots, UserCircleIcon } from "../icons";
+import { ChevronDownIcon, GridIcon, HorizontaLDots } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
 import SidebarWidget from "./SidebarWidget";
 
@@ -55,37 +55,7 @@ const UsersIcon = () => (
   </svg>
 );
 
-const TagIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M20.59 13.41L13.42 20.58C13.2343 20.766 13.0137 20.9135 12.7709 21.0141C12.5281 21.1148 12.2678 21.1666 12.005 21.1666C11.7422 21.1666 11.4819 21.1148 11.2391 21.0141C10.9963 20.9135 10.7757 20.766 10.59 20.58L2 12V2H12L20.59 10.59C20.9625 10.9647 21.1716 11.4716 21.1716 12C21.1716 12.5284 20.9625 13.0353 20.59 13.41Z"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path d="M7 7H7.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const DocumentIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <polyline
-      points="14,2 14,8 20,8"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
+// Unused icons removed to keep sidebar focused on requested menu groups
 
 const navItems: NavItem[] = [
   {
@@ -95,28 +65,19 @@ const navItems: NavItem[] = [
   },
   {
     icon: <MegaphoneIcon />,
-    name: "Campaigns",
-    path: "/campaigns",
+    name: "Campaign",
+    subItems: [
+      { name: "Campaign List", path: "/campaigns" },
+      { name: "Posts", path: "/posts" },
+    ],
   },
   {
     icon: <UsersIcon />,
-    name: "Influencers",
-    path: "/influencers",
-  },
-  {
-    icon: <TagIcon />,
-    name: "Influencer Categories",
-    path: "/influencer-categories",
-  },
-  {
-    icon: <DocumentIcon />,
-    name: "Posts",
-    path: "/posts",
-  },
-  {
-    icon: <UserCircleIcon />,
-    name: "Profile",
-    path: "/profile",
+    name: "Influencer",
+    subItems: [
+      { name: "Influencer", path: "/influencers" },
+      { name: "Influencer Categories", path: "/influencer-categories" },
+    ],
   },
 ];
 

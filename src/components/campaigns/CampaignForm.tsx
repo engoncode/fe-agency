@@ -529,28 +529,30 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                     <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
                       Platform <span className="text-red-500">*</span>
                     </label>
-                    <input
-                      type="text"
+                    <select
                       value={deliverable.platform_name}
                       onChange={(e) => updateDeliverable(index, "platform_name", e.target.value)}
-                      placeholder="e.g., Instagram, TikTok"
                       required
-                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
-                    />
+                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none">
+                      <option value="">Select platform</option>
+                      <option value="instagram">Instagram</option>
+                      <option value="tiktok">TikTok</option>
+                    </select>
                   </div>
 
                   <div>
                     <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">
                       Format <span className="text-red-500">*</span>
                     </label>
-                    <input
-                      type="text"
+                    <select
                       value={deliverable.content_format}
                       onChange={(e) => updateDeliverable(index, "content_format", e.target.value)}
-                      placeholder="e.g., Reels, Story, Post"
                       required
-                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
-                    />
+                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none">
+                      <option value="">Select format</option>
+                      <option value="video">Video</option>
+                      <option value="image">Image</option>
+                    </select>
                   </div>
 
                   <div>
