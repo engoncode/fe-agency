@@ -142,11 +142,11 @@ const Influencers: React.FC = () => {
       </div>
 
       {/* Filters */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-4">
+      <div className="minimal-card p-4">
         <div className="flex flex-col md:flex-row gap-4">
           <form onSubmit={handleSearch} className="flex-1">
             <div className="relative">
-              <svg
+              {/* <svg
                 className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
                 fill="none"
                 stroke="currentColor"
@@ -157,30 +157,24 @@ const Influencers: React.FC = () => {
                   strokeWidth={2}
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
-              </svg>
+              </svg> */}
               <input
                 type="text"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 placeholder="Search by name, email, username..."
-                className="w-full pl-10 pr-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                className="minimal-input w-full pl-10 pr-4"
               />
             </div>
           </form>
           <div className="flex gap-2">
-            <select
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-              className="px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500">
+            <select value={status} onChange={(e) => setStatus(e.target.value)} className="minimal-input">
               <option value="">All Status</option>
               <option value="active">Active</option>
               <option value="inactive">Inactive</option>
               <option value="blacklisted">Blacklisted</option>
             </select>
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500">
+            <select value={category} onChange={(e) => setCategory(e.target.value)} className="minimal-input">
               <option value="">All Categories</option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.name}>
@@ -193,7 +187,7 @@ const Influencers: React.FC = () => {
       </div>
 
       {/* Table */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+      <div className="minimal-card overflow-hidden">
         {loading ? (
           <div className="p-8 text-center text-gray-500 dark:text-gray-400">Loading influencers...</div>
         ) : influencers.length === 0 ? (
@@ -203,7 +197,7 @@ const Influencers: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+                  <tr className="border-b border-gray-200 dark:border-gray-900 bg-gray-50 dark:bg-gray-800/50">
                     <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                       Influencer
                     </th>
@@ -337,7 +331,7 @@ const Influencers: React.FC = () => {
 
             {/* Pagination */}
             {meta && meta.last_page > 1 && (
-              <div className="border-t border-gray-200 dark:border-gray-800 px-6 py-4 flex items-center justify-between">
+              <div className="border-t border-gray-200 dark:border-gray-900 px-6 py-4 flex items-center justify-between">
                 <div className="text-sm text-gray-500 dark:text-gray-400">
                   Showing {(meta.current_page - 1) * meta.per_page + 1} to{" "}
                   {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} influencers
@@ -346,7 +340,7 @@ const Influencers: React.FC = () => {
                   <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className="p-2 rounded-lg border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                    className="minimal-input-sm rounded-sm border border-gray-200 dark:border-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                     <svg
                       className="w-5 h-5 text-gray-600 dark:text-gray-300"
                       fill="none"
@@ -366,10 +360,10 @@ const Influencers: React.FC = () => {
                           <button
                             key={page}
                             onClick={() => handlePageChange(page)}
-                            className={`min-w-[2.5rem] px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
+                            className={`min-w-[2.5rem] minimal-input-sm rounded-sm text-sm font-medium transition-colors ${
                               page === currentPage
                                 ? "bg-brand-500 text-white"
-                                : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-800"
+                                : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-900"
                             }`}>
                             {page}
                           </button>
@@ -387,7 +381,7 @@ const Influencers: React.FC = () => {
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={meta && currentPage === meta.last_page}
-                    className="p-2 rounded-lg border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+                    className="minimal-input-sm rounded-sm border border-gray-200 dark:border-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                     <svg
                       className="w-5 h-5 text-gray-600 dark:text-gray-300"
                       fill="none"

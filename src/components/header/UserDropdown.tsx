@@ -51,7 +51,7 @@ export default function UserDropdown() {
       <Dropdown
         isOpen={isOpen}
         onClose={closeDropdown}
-        className="absolute right-0 mt-[17px] flex w-[260px] flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-theme-lg dark:border-gray-800 dark:bg-gray-dark">
+        className="absolute right-0 mt-[17px] flex w-[260px] flex-col rounded-2xl border border-gray-200 bg-white p-3 shadow-none dark:border-gray-900 dark:bg-gray-dark">
         <div>
           <span className="block font-medium text-gray-700 text-theme-sm dark:text-gray-400">
             {user?.name || "User"}
@@ -134,9 +134,9 @@ export default function UserDropdown() {
         </ul> */}
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-2 mt-3 font-medium text-blue-600 rounded-md border border-blue-400 bg-transparent hover:bg-blue-50 transition-colors text-theme-sm">
+          className="flex items-center gap-3 px-3 py-2 mt-3 font-medium text-gray-700 dark:text-gray-300 rounded-md border border-gray-100 dark:border-gray-700 bg-transparent hover:bg-gray-50 dark:hover:bg-white/5 transition-colors text-theme-sm">
           <svg
-            className="w-6 h-6 text-blue-600"
+            className="w-6 h-6 text-gray-700 dark:text-gray-300"
             width="24"
             height="24"
             viewBox="0 0 24 24"

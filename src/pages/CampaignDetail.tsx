@@ -39,7 +39,7 @@ const CampaignDetail: React.FC = () => {
       case "draft":
         return "text-yellow-600 bg-yellow-50 border-yellow-200 dark:text-yellow-400 dark:bg-yellow-900/20 dark:border-yellow-800";
       default:
-        return "text-gray-600 bg-gray-50 border-gray-200 dark:text-gray-400 dark:bg-gray-900/20 dark:border-gray-800";
+        return "text-gray-600 bg-gray-50 border-gray-200 dark:text-gray-400 dark:bg-gray-900/20 dark:border-gray-900";
     }
   };
 
@@ -74,7 +74,7 @@ const CampaignDetail: React.FC = () => {
         <div className="flex items-center gap-4">
           <button
             onClick={() => navigate(-1)}
-            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-800 transition-colors">
+            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-900 transition-colors">
             <svg
               className="w-5 h-5 text-gray-600 dark:text-gray-300"
               fill="none"
@@ -115,7 +115,7 @@ const CampaignDetail: React.FC = () => {
 
       {/* Campaign Image */}
       {campaign.image && (
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Campaign Image</h2>
           <div className="relative w-full rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
             <img
@@ -131,7 +131,7 @@ const CampaignDetail: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column - Details */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Description</h2>
             <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
               {campaign.description}
@@ -140,7 +140,7 @@ const CampaignDetail: React.FC = () => {
 
           {/* Campaign Goal & KPI */}
           {(campaign.campaign_goal || campaign.kpi_target) && (
-            <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+            <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
               <div className="flex items-center gap-2 mb-4">
                 <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -173,7 +173,7 @@ const CampaignDetail: React.FC = () => {
 
           {/* Key Messages */}
           {campaign.key_messages && campaign.key_messages.length > 0 && (
-            <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+            <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
               <div className="flex items-center gap-2 mb-4">
                 <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -200,7 +200,7 @@ const CampaignDetail: React.FC = () => {
 
           {/* Mandatory Content */}
           {((campaign.mandatory_hashtags && campaign.mandatory_hashtags.length > 0) || campaign.mandatory_cta) && (
-            <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+            <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
               <div className="flex items-center gap-2 mb-4">
                 <svg className="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -253,7 +253,7 @@ const CampaignDetail: React.FC = () => {
 
           {/* Platform Deliverables */}
           {campaign.platform_deliverables && campaign.platform_deliverables.length > 0 && (
-            <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+            <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
               <div className="flex items-center gap-2 mb-4">
                 <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path

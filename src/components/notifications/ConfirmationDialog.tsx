@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 interface ConfirmationDialogProps {
   isOpen: boolean;
@@ -97,7 +98,7 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
     }
   };
 
-  return (
+  const dialog = (
     <div
       className={`fixed inset-0 z-[60] overflow-y-auto ${
         isOpen ? "opacity-100" : "opacity-0"
@@ -170,6 +171,12 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
       </div>
     </div>
   );
+
+  // Render modal via portal so fixed positioning is relative to viewport
+  if (typeof document !== "undefined") {
+    return createPortal(dialog, document.body);
+  }
+  return dialog;
 };
 
 export default ConfirmationDialog;

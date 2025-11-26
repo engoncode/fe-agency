@@ -201,7 +201,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Basic Information */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Basic Information</h3>
         <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -215,7 +215,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                 value={formData.campaign_name}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+                className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
               />
               <FieldError messages={errors.campaign_name} />
             </div>
@@ -230,7 +230,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                 value={formData.product_name}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+                className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
               />
               <FieldError messages={errors.product_name} />
             </div>
@@ -246,7 +246,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               onChange={handleChange}
               required
               rows={3}
-              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
             />
             <FieldError messages={errors.description} />
           </div>
@@ -306,7 +306,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
       </div>
 
       {/* Campaign Categories */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Campaign Categories</h3>
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -323,7 +323,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               onChange={handleCategoryChange}
               required
               size={Math.min(categories.length, 6)}
-              className="w-full px-4 py-2.5 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none">
+              className="w-full px-4 py-2.5 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none">
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.id} className="py-1">
                   {cat.name}
@@ -337,7 +337,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
       </div>
 
       {/* Campaign Goals & KPI */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Goals & KPI</h3>
         <div className="space-y-4">
           <div>
@@ -350,7 +350,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               onChange={handleChange}
               required
               rows={2}
-              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
             />
             <FieldError messages={errors.campaign_goal} />
           </div>
@@ -366,7 +366,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               onChange={handleChange}
               required
               placeholder="e.g., 100K impressions, 5K engagements"
-              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
             />
             <FieldError messages={errors.kpi_target} />
           </div>
@@ -374,7 +374,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
       </div>
 
       {/* Key Messages */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Key Messages</h3>
         <div className="space-y-3">
           <div className="flex gap-2">
@@ -384,7 +384,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               onChange={(e) => setKeyMessageInput(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && (e.preventDefault(), addKeyMessage())}
               placeholder="Add key message"
-              className="flex-1 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+              className="flex-1 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
             />
             <button
               type="button"
@@ -417,7 +417,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
       </div>
 
       {/* Mandatory Content */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Mandatory Content</h3>
         <div className="space-y-4">
           {/* Hashtags */}
@@ -433,7 +433,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                   onChange={(e) => setHashtagInput(e.target.value)}
                   onKeyPress={(e) => e.key === "Enter" && (e.preventDefault(), addHashtag())}
                   placeholder="Add hashtag (e.g., #YourBrand)"
-                  className="flex-1 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+                  className="flex-1 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
                 />
                 <button
                   type="button"
@@ -475,7 +475,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               value={formData.mandatory_cta}
               onChange={handleChange}
               placeholder="e.g., Visit our website, Shop now"
-              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
             />
             <FieldError messages={errors.mandatory_cta} />
           </div>
@@ -483,7 +483,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
       </div>
 
       {/* Platform Deliverables */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Platform Deliverables</h3>
           <button
@@ -533,7 +533,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                       value={deliverable.platform_name}
                       onChange={(e) => updateDeliverable(index, "platform_name", e.target.value)}
                       required
-                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none">
+                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none">
                       <option value="">Select platform</option>
                       <option value="instagram">Instagram</option>
                       <option value="tiktok">TikTok</option>
@@ -548,7 +548,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                       value={deliverable.content_format}
                       onChange={(e) => updateDeliverable(index, "content_format", e.target.value)}
                       required
-                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none">
+                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none">
                       <option value="">Select format</option>
                       <option value="video">Video</option>
                       <option value="image">Image</option>
@@ -565,7 +565,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                       onChange={(e) => updateDeliverable(index, "quantity", Number(e.target.value))}
                       min="1"
                       required
-                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
                     />
                   </div>
 
@@ -585,7 +585,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                           )
                         }
                         placeholder="Min"
-                        className="w-1/2 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+                        className="w-1/2 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
                       />
                       <input
                         type="number"
@@ -598,7 +598,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                           )
                         }
                         placeholder="Max"
-                        className="w-1/2 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+                        className="w-1/2 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
                       />
                     </div>
                   </div>
@@ -610,7 +610,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                       onChange={(e) => updateDeliverable(index, "notes", e.target.value)}
                       rows={2}
                       placeholder="Additional requirements or notes..."
-                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
                     />
                   </div>
                 </div>
@@ -621,7 +621,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
       </div>
 
       {/* Timeline */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Timeline</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -634,7 +634,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               value={formData.start_date}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
             />
             <FieldError messages={errors.start_date} />
           </div>
@@ -649,7 +649,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               value={formData.end_date}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
             />
             <FieldError messages={errors.end_date} />
           </div>
@@ -657,7 +657,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
       </div>
 
       {/* Compensation & Rights */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Compensation & Rights</h3>
         <div className="space-y-4">
           <div>
@@ -722,7 +722,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               onChange={handleChange}
               required
               disabled={campaign?.status !== "draft"}
-              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none disabled:opacity-50 disabled:cursor-not-allowed">
+              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none disabled:opacity-50 disabled:cursor-not-allowed">
               {!campaign || campaign.status === "draft" ? (
                 <>
                   <option value="draft">Draft</option>
@@ -753,7 +753,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
           type="button"
           onClick={() => navigate("/campaigns")}
           disabled={isLoading}
-          className="px-6 py-2 border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors disabled:opacity-50">
+          className="px-6 py-2 border border-gray-200 dark:border-gray-900 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors disabled:opacity-50">
           Cancel
         </button>
         <button

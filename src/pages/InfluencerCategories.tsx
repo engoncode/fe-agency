@@ -249,7 +249,7 @@ const InfluencerCategories: React.FC = () => {
       {/* Statistics Cards */}
       {stats && (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -331,7 +331,7 @@ const InfluencerCategories: React.FC = () => {
 
       {/* Top Categories */}
       {stats && stats.top_categories && stats.top_categories.length > 0 && (
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Top Categories by Influencers</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             {stats.top_categories.map((category, index) => (
@@ -358,7 +358,7 @@ const InfluencerCategories: React.FC = () => {
       )}
 
       {/* Search and Bulk Actions */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-4">
+      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-4">
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
           <form onSubmit={handleSearch} className="flex-1 max-w-md">
             <div className="relative">
@@ -369,7 +369,7 @@ const InfluencerCategories: React.FC = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full px-4 py-2 pl-10 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
-              <svg
+              {/* <svg
                 className="w-5 h-5 absolute left-3 top-2.5 text-gray-400"
                 fill="none"
                 stroke="currentColor"
@@ -380,7 +380,7 @@ const InfluencerCategories: React.FC = () => {
                   strokeWidth={2}
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
-              </svg>
+              </svg> */}
             </div>
           </form>
 
@@ -406,7 +406,7 @@ const InfluencerCategories: React.FC = () => {
       </div>
 
       {/* Table */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 overflow-hidden">
         {loading ? (
           <div className="p-8 text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-500 mx-auto mb-4"></div>
@@ -417,7 +417,7 @@ const InfluencerCategories: React.FC = () => {
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+                  <tr className="border-b border-gray-200 dark:border-gray-900 bg-gray-50 dark:bg-gray-800/50">
                     <th className="px-6 py-4 text-left">
                       <input
                         type="checkbox"
@@ -551,7 +551,7 @@ const InfluencerCategories: React.FC = () => {
 
             {/* Pagination */}
             {lastPage > 1 && (
-              <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-800 flex items-center justify-between">
+              <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-900 flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="text-sm text-gray-600 dark:text-gray-400">
                     Showing page {currentPage} of {lastPage} ({total} total)
@@ -634,9 +634,9 @@ const InfluencerCategories: React.FC = () => {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
             {/* Modal Header */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-900">
               <h2 className="text-xl font-bold text-gray-900 dark:text-white">
                 {editingCategory ? "Edit Category" : "Create Category"}
               </h2>

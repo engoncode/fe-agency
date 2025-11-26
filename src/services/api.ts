@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://dev.stpi.co.id/api",
+  baseURL: "https://relay-agency.stpi.co.id/api",
   headers: {
     "Content-Type": "application/json",
   },
@@ -34,7 +34,7 @@ export const getImageUrl = (imagePath: string | null | undefined): string | null
   }
 
   // Construct full URL from backend storage
-  const baseURL = "https://dev.stpi.co.id";
+  const baseURL = "https://relay-agency.stpi.co.id";
   return `${baseURL}/storage/${imagePath}`;
 };
 

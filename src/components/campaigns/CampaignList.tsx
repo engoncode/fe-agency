@@ -21,7 +21,7 @@ const CampaignList: React.FC<CampaignListProps> = ({ campaigns, onDelete }) => {
       case "draft":
         return "text-yellow-600 bg-yellow-50 border-yellow-200 dark:text-yellow-400 dark:bg-yellow-900/20 dark:border-yellow-800";
       default:
-        return "text-gray-600 bg-gray-50 border-gray-200 dark:text-gray-400 dark:bg-gray-900/20 dark:border-gray-800";
+        return "text-gray-600 bg-gray-50 border-gray-200 dark:text-gray-400 dark:bg-gray-900/20 dark:border-gray-900";
     }
   };
 
@@ -37,7 +37,7 @@ const CampaignList: React.FC<CampaignListProps> = ({ campaigns, onDelete }) => {
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-gray-200 dark:border-gray-800">
+          <tr className="border-b border-gray-200 dark:border-gray-900">
             <th className="py-3 px-4 text-left font-medium text-gray-500 dark:text-gray-400">Campaign</th>
             <th className="py-3 px-4 text-left font-medium text-gray-500 dark:text-gray-400">Platform</th>
             <th className="py-3 px-4 text-left font-medium text-gray-500 dark:text-gray-400">Status</th>
@@ -57,7 +57,7 @@ const CampaignList: React.FC<CampaignListProps> = ({ campaigns, onDelete }) => {
             campaigns.map((campaign) => (
               <tr
                 key={campaign.id}
-                className="border-b border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                className="border-b border-gray-200 dark:border-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                 <td className="py-3 px-4">
                   <div className="font-medium text-gray-900 dark:text-gray-100">{campaign.campaign_name}</div>
                   <div className="text-xs text-gray-500 dark:text-gray-400 line-clamp-1">{campaign.product_name}</div>

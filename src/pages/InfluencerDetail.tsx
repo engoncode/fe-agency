@@ -60,7 +60,7 @@ const InfluencerDetail: React.FC = () => {
         <div className="flex items-center gap-4">
           <button
             onClick={() => navigate(-1)}
-            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-800 transition-colors">
+            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-900 transition-colors">
             <svg
               className="w-5 h-5 text-gray-600 dark:text-gray-300"
               fill="none"
@@ -103,10 +103,10 @@ const InfluencerDetail: React.FC = () => {
         {/* Left Column - Details */}
         <div className="lg:col-span-2 space-y-6">
           {/* Metrics */}
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
             <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Metrics</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="p-4 rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+              <div className="p-4 rounded-lg border border-gray-200 dark:border-gray-900 bg-gray-50 dark:bg-gray-800/50">
                 <svg className="w-5 h-5 text-purple-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
@@ -120,7 +120,7 @@ const InfluencerDetail: React.FC = () => {
                   {influencer.influencer?.total_followers?.toLocaleString() ?? 0}
                 </p>
               </div>
-              <div className="p-4 rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+              <div className="p-4 rounded-lg border border-gray-200 dark:border-gray-900 bg-gray-50 dark:bg-gray-800/50">
                 <svg className="w-5 h-5 text-pink-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
@@ -134,7 +134,7 @@ const InfluencerDetail: React.FC = () => {
                   {influencer.influencer?.total_points?.toLocaleString() ?? 0}
                 </p>
               </div>
-              <div className="p-4 rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50">
+              <div className="p-4 rounded-lg border border-gray-200 dark:border-gray-900 bg-gray-50 dark:bg-gray-800/50">
                 <svg className="w-5 h-5 text-yellow-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"

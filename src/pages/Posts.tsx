@@ -141,14 +141,11 @@ const Posts: React.FC = () => {
       </div>
 
       {/* Filters */}
-      <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+      <div className="minimal-card p-6">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Campaign</label>
-            <select
-              value={campaignId}
-              onChange={(e) => setCampaignId(e.target.value)}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white">
+            <select value={campaignId} onChange={(e) => setCampaignId(e.target.value)} className="minimal-input w-full">
               <option value="">All Campaigns</option>
               {campaigns.map((c) => (
                 <option key={c.id} value={String(c.id)}>
@@ -164,7 +161,7 @@ const Posts: React.FC = () => {
               value={influencerName}
               onChange={(e) => setInfluencerName(e.target.value)}
               placeholder="Enter influencer name"
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+              className="minimal-input w-full"
             />
           </div>
           <div>
@@ -172,7 +169,7 @@ const Posts: React.FC = () => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as "" | "pending" | "approved" | "rejected")}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white">
+              className="minimal-input w-full">
               <option value="">All Status</option>
               <option value="pending">Pending</option>
               <option value="approved">Approved</option>
@@ -184,7 +181,7 @@ const Posts: React.FC = () => {
             <select
               value={platformFilter}
               onChange={(e) => setPlatformFilter(e.target.value as "" | "instagram" | "tiktok")}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white">
+              className="minimal-input w-full">
               <option value="">All Platforms</option>
               <option value="instagram">Instagram</option>
               <option value="tiktok">TikTok</option>
@@ -227,7 +224,7 @@ const Posts: React.FC = () => {
                     <button
                       onClick={() => handlePageChange(currentPage - 1)}
                       disabled={currentPage === 1}
-                      className="rounded-lg border border-gray-300 px-3 py-1 text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-800">
+                      className="minimal-input-sm rounded-sm border border-gray-300 px-3 py-1 text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-800">
                       Previous
                     </button>
                     <span className="text-sm text-gray-700 dark:text-gray-300">
@@ -236,7 +233,7 @@ const Posts: React.FC = () => {
                     <button
                       onClick={() => handlePageChange(currentPage + 1)}
                       disabled={currentPage === meta.last_page}
-                      className="rounded-lg border border-gray-300 px-3 py-1 text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-800">
+                      className="minimal-input-sm rounded-sm border border-gray-300 px-3 py-1 text-sm disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 dark:border-gray-600 dark:hover:bg-gray-800">
                       Next
                     </button>
                   </div>

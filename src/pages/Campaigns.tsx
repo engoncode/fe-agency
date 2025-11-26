@@ -18,7 +18,6 @@ const Campaigns: React.FC = () => {
   const [sortFilter, setSortFilter] = useState<"newest" | "oldest">("newest");
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Confirmation dialog for delete
   const [confirmationDialog, setConfirmationDialog] = useState<{
     isOpen: boolean;
     title: string;
@@ -26,26 +25,14 @@ const Campaigns: React.FC = () => {
     onConfirm: () => void;
     type?: "success" | "warning" | "error" | "info";
     isLoading?: boolean;
-  }>({
-    isOpen: false,
-    title: "",
-    message: "",
-    onConfirm: () => {},
-    type: "warning",
-    isLoading: false,
-  });
+  }>({ isOpen: false, title: "", message: "", onConfirm: () => {}, type: "warning", isLoading: false });
 
-  // Toast notifications
   const { showSuccess, showError } = useNotification();
 
   const fetchCampaigns = async (page = 1) => {
     try {
       setLoading(true);
-      const params: any = {
-        page,
-        per_page: 10,
-        sort: sortFilter,
-      };
+      const params: any = { page, per_page: 10, sort: sortFilter };
       if (search) params.q = search;
       if (statusFilter) params.status = statusFilter;
 
@@ -63,6 +50,7 @@ const Campaigns: React.FC = () => {
 
   useEffect(() => {
     fetchCampaigns(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [statusFilter, sortFilter, search]);
 
   const handleSearch = (e: React.FormEvent) => {
@@ -77,26 +65,18 @@ const Campaigns: React.FC = () => {
 
   const handleDelete = async (id: number) => {
     const performDelete = async () => {
-      // Set loading state
       setConfirmationDialog((prev) => ({ ...prev, isLoading: true }));
-
       try {
         await campaignService.delete(id);
         showSuccess("Success", "Campaign deleted successfully!");
         fetchCampaigns(currentPage);
-        // Close modal after successful response
         setConfirmationDialog((prev) => ({ ...prev, isOpen: false, isLoading: false }));
       } catch (error: any) {
         console.error("Failed to delete campaign:", error);
-        // Extract error message from response if available
         let errorMessage = "Failed to delete campaign";
-        if (error?.response?.data?.message) {
-          errorMessage = error.response.data.message;
-        } else if (error?.message) {
-          errorMessage = error.message;
-        }
+        if (error?.response?.data?.message) errorMessage = error.response.data.message;
+        else if (error?.message) errorMessage = error.message;
         showError("Error", errorMessage);
-        // Close modal on error too, but keep loading false
         setConfirmationDialog((prev) => ({ ...prev, isOpen: false, isLoading: false }));
       }
     };
@@ -111,19 +91,17 @@ const Campaigns: React.FC = () => {
     });
   };
 
-  const handleCloseConfirmation = () => {
-    setConfirmationDialog((prev) => ({ ...prev, isOpen: false, isLoading: false }));
-  };
+  const handleCloseConfirmation = () => setConfirmationDialog((prev) => ({ ...prev, isOpen: false, isLoading: false }));
 
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && meta && newPage <= meta.last_page) {
       fetchCampaigns(newPage);
+      setCurrentPage(newPage);
     }
   };
 
   return (
     <div className="space-y-6 p-6">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Campaigns</h1>
@@ -139,45 +117,30 @@ const Campaigns: React.FC = () => {
         </button>
       </div>
 
-      {/* Status Cards */}
       {meta?.status_counts && (
         <StatusCards statusCounts={meta.status_counts} onStatusClick={handleStatusClick} currentStatus={statusFilter} />
       )}
 
-      {/* Filters */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-4">
+      <div className="minimal-card p-4">
         <div className="flex flex-col md:flex-row gap-4">
-          {/* Search */}
           <form onSubmit={handleSearch} className="flex-1">
             <div className="relative">
-              <svg
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
+              {/* <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg> */}
               <input
                 type="text"
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
                 placeholder="Search campaigns by name, product, goal..."
-                className="w-full pl-10 pr-4 py-2 rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
+                className="minimal-input w-full pl-10 pr-4"
               />
             </div>
           </form>
 
-          {/* Sort Filter */}
           <div className="flex items-center gap-2">
             <select
               value={sortFilter}
               onChange={(e) => setSortFilter(e.target.value as "newest" | "oldest")}
-              className="px-4 py-2 rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none">
+              className="minimal-input">
               <option value="newest">Newest First</option>
               <option value="oldest">Oldest First</option>
             </select>
@@ -185,17 +148,15 @@ const Campaigns: React.FC = () => {
         </div>
       </div>
 
-      {/* Campaign List */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden">
+      <div className="minimal-card overflow-hidden">
         {loading ? (
           <div className="p-8 text-center text-gray-500 dark:text-gray-400">Loading campaigns...</div>
         ) : (
           <>
             <CampaignList campaigns={campaigns} onDelete={handleDelete} />
 
-            {/* Pagination */}
             {meta && meta.last_page > 1 && (
-              <div className="border-t border-gray-200 dark:border-gray-800 p-4 flex items-center justify-between">
+              <div className="border-t border-gray-200 dark:border-gray-900 p-4 flex items-center justify-between">
                 <div className="text-sm text-gray-500 dark:text-gray-400">
                   Showing {(meta.current_page - 1) * meta.per_page + 1} to{" "}
                   {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} campaigns
@@ -205,7 +166,7 @@ const Campaigns: React.FC = () => {
                   <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className="p-2 rounded-lg border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed">
+                    className="minimal-input-sm rounded-sm border border-gray-200 dark:border-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                     </svg>
@@ -213,22 +174,17 @@ const Campaigns: React.FC = () => {
 
                   <div className="flex items-center gap-1">
                     {Array.from({ length: Math.min(meta.last_page, 5) }, (_, i) => {
-                      let pageNum;
-                      if (meta.last_page <= 5) {
-                        pageNum = i + 1;
-                      } else if (currentPage <= 3) {
-                        pageNum = i + 1;
-                      } else if (currentPage >= meta.last_page - 2) {
-                        pageNum = meta.last_page - 4 + i;
-                      } else {
-                        pageNum = currentPage - 2 + i;
-                      }
+                      let pageNum: number;
+                      if (meta.last_page <= 5) pageNum = i + 1;
+                      else if (currentPage <= 3) pageNum = i + 1;
+                      else if (currentPage >= meta.last_page - 2) pageNum = meta.last_page - 4 + i;
+                      else pageNum = currentPage - 2 + i;
 
                       return (
                         <button
                           key={pageNum}
                           onClick={() => handlePageChange(pageNum)}
-                          className={`px-3 py-1 rounded-lg text-sm font-medium ${
+                          className={`min-w-[2.25rem] minimal-input-sm rounded-sm text-sm font-medium ${
                             currentPage === pageNum
                               ? "bg-brand-500 text-white"
                               : "hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
@@ -242,7 +198,7 @@ const Campaigns: React.FC = () => {
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === meta.last_page}
-                    className="p-2 rounded-lg border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed">
+                    className="minimal-input-sm rounded-sm border border-gray-200 dark:border-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
@@ -254,7 +210,6 @@ const Campaigns: React.FC = () => {
         )}
       </div>
 
-      {/* Confirmation Dialog */}
       <ConfirmationDialog
         isOpen={confirmationDialog.isOpen}
         title={confirmationDialog.title}
