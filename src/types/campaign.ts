@@ -39,6 +39,7 @@ export interface CampaignFormData {
   campaign_name: string;
   product_name?: string;
   campaign_goal?: string;
+  campaign_goal_refined?: string;
   kpi_target?: string;
   key_messages?: string[];
   mandatory_hashtags?: string[];

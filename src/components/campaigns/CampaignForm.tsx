@@ -4,6 +4,7 @@ import type { Campaign, CampaignFormData } from "../../types/campaign";
 import type { Category } from "../../types/category";
 import { categoryService } from "../../services/category.service";
 import { getImageUrl } from "../../services/api";
+import api from "../../services/api";
 
 type Errors = Record<string, string[]>;
 
@@ -45,6 +46,8 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
   const [keyMessageInput, setKeyMessageInput] = useState("");
   const [hashtagInput, setHashtagInput] = useState("");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [isGeneratingAI, setIsGeneratingAI] = useState(false);
+  const [aiError, setAiError] = useState<string | null>(null);
 
   // Categories state
   const [categories, setCategories] = useState<Category[]>([]);
@@ -158,6 +161,70 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
     }));
   };
 
+  // AI generation
+  const handleGenerateAI = async () => {
+    // basic client-side validation
+    if (!formData.product_name || !formData.campaign_name || !formData.campaign_goal) {
+      setAiError("Please fill Product Name, Campaign Name and Campaign Goal before generating.");
+      return;
+    }
+
+    setAiError(null);
+    setIsGeneratingAI(true);
+
+    try {
+      const payload = {
+        product_name: formData.product_name,
+        campaign_name: formData.campaign_name,
+        campaign_goal: formData.campaign_goal,
+      };
+
+      const resp = await api.post("ai/campaign/brief", payload);
+      const data = resp.data || {};
+
+      setFormData((prev) => ({
+        ...prev,
+        // Prefer AI-refined campaign goal mapped into description for editing
+        description: data.campaign_goal_refined ?? data.description ?? prev.description,
+        campaign_goal: data.campaign_goal ?? prev.campaign_goal,
+        kpi_target: data.kpi_target ?? prev.kpi_target,
+        mandatory_cta: data.mandatory_cta ?? prev.mandatory_cta,
+        rules: data.rules ?? prev.rules,
+        key_messages: Array.isArray(data.key_messages)
+          ? data.key_messages
+          : data.key_messages
+          ? String(data.key_messages)
+              .split("\n")
+              .map((s: string) => s.trim())
+              .filter(Boolean)
+          : prev.key_messages,
+        mandatory_hashtags: Array.isArray(data.mandatory_hashtags)
+          ? data.mandatory_hashtags
+          : data.mandatory_hashtags
+          ? String(data.mandatory_hashtags)
+              .split(/[,\n]+/)
+              .map((s: string) => s.trim())
+              .filter(Boolean)
+          : prev.mandatory_hashtags,
+        platform_deliverables: Array.isArray(data.platform_deliverables)
+          ? data.platform_deliverables.map((d: any) => ({
+              platform_name: d.platform_name || "",
+              content_format: d.content_format || "",
+              quantity: d.quantity ?? 1,
+              min_duration_seconds: d.min_duration_seconds ?? undefined,
+              max_duration_seconds: d.max_duration_seconds ?? undefined,
+              notes: d.notes ?? "",
+            }))
+          : prev.platform_deliverables,
+      }));
+    } catch (error) {
+      console.error("AI generation error:", error);
+      setAiError("AI generation failed. Please try again.");
+    } finally {
+      setIsGeneratingAI(false);
+    }
+  };
+
   const removeDeliverable = (index: number) => {
     setFormData((prev) => ({
       ...prev,
@@ -214,6 +281,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                 name="campaign_name"
                 value={formData.campaign_name}
                 onChange={handleChange}
+                disabled={isGeneratingAI}
                 required
                 className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
               />
@@ -229,6 +297,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                 name="product_name"
                 value={formData.product_name}
                 onChange={handleChange}
+                disabled={isGeneratingAI}
                 required
                 className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
               />
@@ -238,17 +307,39 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Description <span className="text-red-500">*</span>
+              Campaign Goal <span className="text-red-500">*</span>
             </label>
             <textarea
-              name="description"
-              value={formData.description}
+              name="campaign_goal"
+              value={formData.campaign_goal}
               onChange={handleChange}
+              disabled={isGeneratingAI}
               required
               rows={3}
               className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
             />
-            <FieldError messages={errors.description} />
+            <FieldError messages={errors.campaign_goal} />
+            <div className="mt-2 flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handleGenerateAI}
+                disabled={isGeneratingAI}
+                className="inline-flex items-center gap-2 px-3 py-1 bg-yellow-100 hover:bg-yellow-200 text-yellow-800 rounded-md text-sm">
+                {isGeneratingAI ? <span>Generating...</span> : <span>✨ Auto-Fill with AI</span>}
+              </button>
+              {aiError && <p className="text-sm text-red-600">{aiError}</p>}
+            </div>
+            <div className="mt-3">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</label>
+              <textarea
+                name="description"
+                value={formData.description || ""}
+                onChange={handleChange}
+                disabled={isGeneratingAI}
+                rows={3}
+                className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+              />
+            </div>
           </div>
 
           {/* Campaign Image */}
@@ -340,20 +431,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
       <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Goals & KPI</h3>
         <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Campaign Goal <span className="text-red-500">*</span>
-            </label>
-            <textarea
-              name="campaign_goal"
-              value={formData.campaign_goal}
-              onChange={handleChange}
-              required
-              rows={2}
-              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
-            />
-            <FieldError messages={errors.campaign_goal} />
-          </div>
+          {/* KPI Target remains in this section; Campaign Goal moved to Basic Information */}
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -364,6 +442,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               name="kpi_target"
               value={formData.kpi_target}
               onChange={handleChange}
+              disabled={isGeneratingAI}
               required
               placeholder="e.g., 100K impressions, 5K engagements"
               className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
@@ -383,12 +462,14 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               value={keyMessageInput}
               onChange={(e) => setKeyMessageInput(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && (e.preventDefault(), addKeyMessage())}
+              disabled={isGeneratingAI}
               placeholder="Add key message"
               className="flex-1 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
             />
             <button
               type="button"
               onClick={addKeyMessage}
+              disabled={isGeneratingAI}
               className="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-lg text-sm flex items-center gap-1 transition-colors">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -438,6 +519,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                 <button
                   type="button"
                   onClick={addHashtag}
+                  disabled={isGeneratingAI}
                   className="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-lg text-sm flex items-center gap-1 transition-colors">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -489,6 +571,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
           <button
             type="button"
             onClick={addDeliverable}
+            disabled={isGeneratingAI}
             className="flex items-center gap-2 px-4 py-2 bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition-colors text-sm">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -533,6 +616,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                       value={deliverable.platform_name}
                       onChange={(e) => updateDeliverable(index, "platform_name", e.target.value)}
                       required
+                      disabled={isGeneratingAI}
                       className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none">
                       <option value="">Select platform</option>
                       <option value="instagram">Instagram</option>
@@ -548,6 +632,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                       value={deliverable.content_format}
                       onChange={(e) => updateDeliverable(index, "content_format", e.target.value)}
                       required
+                      disabled={isGeneratingAI}
                       className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none">
                       <option value="">Select format</option>
                       <option value="video">Video</option>
@@ -565,6 +650,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                       onChange={(e) => updateDeliverable(index, "quantity", Number(e.target.value))}
                       min="1"
                       required
+                      disabled={isGeneratingAI}
                       className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
                     />
                   </div>
@@ -586,6 +672,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                         }
                         placeholder="Min"
                         className="w-1/2 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+                        disabled={isGeneratingAI}
                       />
                       <input
                         type="number"
@@ -599,6 +686,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                         }
                         placeholder="Max"
                         className="w-1/2 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+                        disabled={isGeneratingAI}
                       />
                     </div>
                   </div>
@@ -611,6 +699,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                       rows={2}
                       placeholder="Additional requirements or notes..."
                       className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+                      disabled={isGeneratingAI}
                     />
                   </div>
                 </div>
