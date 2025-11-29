@@ -48,6 +48,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isGeneratingAI, setIsGeneratingAI] = useState(false);
   const [aiError, setAiError] = useState<string | null>(null);
+  const [previewMode, setPreviewMode] = useState<"portrait" | "landscape">("landscape");
 
   // Categories state
   const [categories, setCategories] = useState<Category[]>([]);
@@ -346,8 +347,31 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Campaign Image</label>
             {imagePreview ? (
-              <div className="relative">
-                <div className="relative w-full h-48 rounded-lg border-2 border-gray-200 dark:border-gray-700 overflow-hidden">
+              <div>
+                <div className="flex items-center justify-center gap-2 mb-3">
+                  <button
+                    type="button"
+                    onClick={() => setPreviewMode("portrait")}
+                    className={`px-2 py-1 rounded-md text-sm ${
+                      previewMode === "portrait" ? "bg-gray-200 dark:bg-gray-700" : "bg-transparent"
+                    }`}>
+                    Portrait 9:19 (vertical)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPreviewMode("landscape")}
+                    className={`px-2 py-1 rounded-md text-sm ${
+                      previewMode === "landscape" ? "bg-gray-200 dark:bg-gray-700" : "bg-transparent"
+                    }`}>
+                    Landscape 19:9 (horizontal)
+                  </button>
+                </div>
+
+                <div
+                  className={`relative w-full rounded-lg border-2 border-gray-200 dark:border-gray-700 overflow-hidden mx-auto ${
+                    previewMode === "portrait" ? "max-w-[420px]" : "max-w-[760px]"
+                  }`}
+                  style={{ aspectRatio: previewMode === "portrait" ? "9/19" : "19/9" }}>
                   <img src={imagePreview} alt="Campaign Preview" className="w-full h-full object-cover" />
                   <button
                     type="button"
@@ -364,10 +388,33 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               </div>
             ) : (
               <div>
+                <div className="flex items-center justify-center gap-2 mb-3">
+                  <button
+                    type="button"
+                    onClick={() => setPreviewMode("portrait")}
+                    className={`px-2 py-1 rounded-md text-sm ${
+                      previewMode === "portrait" ? "bg-gray-200 dark:bg-gray-700" : "bg-transparent"
+                    }`}>
+                    Portrait 9:19 (vertical)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPreviewMode("landscape")}
+                    className={`px-2 py-1 rounded-md text-sm ${
+                      previewMode === "landscape" ? "bg-gray-200 dark:bg-gray-700" : "bg-transparent"
+                    }`}>
+                    Landscape 19:9 (horizontal)
+                  </button>
+                </div>
+
                 <label
                   htmlFor="campaign-image-upload"
-                  className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                  className="flex flex-col items-center justify-center w-full border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  style={{ aspectRatio: previewMode === "portrait" ? "9/19" : "19/9" }}>
+                  <div
+                    className={`flex flex-col items-center justify-center pt-5 pb-6 mx-auto ${
+                      previewMode === "portrait" ? "max-w-[420px]" : "max-w-[760px]"
+                    }`}>
                     <svg className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
