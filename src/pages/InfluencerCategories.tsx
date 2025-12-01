@@ -229,16 +229,16 @@ const InfluencerCategories: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="min-h-screen bg-slate-50 dark:bg-gray-950 -m-6 p-6 space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Influencer Categories</h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">Manage categories for influencer classification</p>
+          <h1 className="text-2xl font-semibold text-slate-800 dark:text-white">Influencer Categories</h1>
+          <p className="text-slate-500 dark:text-slate-400 mt-1">Manage categories for influencer classification</p>
         </div>
         <button
           onClick={() => handleOpenModal()}
-          className="flex items-center gap-2 px-4 py-2 bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition-colors font-medium">
+          className="flex items-center gap-2 px-4 py-2.5 bg-slate-800 text-white rounded-lg hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 transition-colors text-sm font-medium">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
@@ -249,10 +249,14 @@ const InfluencerCategories: React.FC = () => {
       {/* Statistics Cards */}
       {stats && (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm p-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                <svg
+                  className="w-5 h-5 text-blue-600 dark:text-blue-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -262,16 +266,20 @@ const InfluencerCategories: React.FC = () => {
                 </svg>
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.total_categories}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Total Categories</p>
+                <p className="text-2xl font-semibold text-slate-800 dark:text-white">{stats.total_categories}</p>
+                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Total Categories</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm p-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 rounded-lg bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                <svg
+                  className="w-5 h-5 text-green-600 dark:text-green-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -281,16 +289,22 @@ const InfluencerCategories: React.FC = () => {
                 </svg>
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.categories_with_influencers}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">With Influencers</p>
+                <p className="text-2xl font-semibold text-slate-800 dark:text-white">
+                  {stats.categories_with_influencers}
+                </p>
+                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">With Influencers</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm p-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+                <svg
+                  className="w-5 h-5 text-purple-600 dark:text-purple-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -300,16 +314,22 @@ const InfluencerCategories: React.FC = () => {
                 </svg>
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.categories_with_campaigns}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">With Campaigns</p>
+                <p className="text-2xl font-semibold text-slate-800 dark:text-white">
+                  {stats.categories_with_campaigns}
+                </p>
+                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">With Campaigns</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm p-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                <svg
+                  className="w-5 h-5 text-orange-600 dark:text-orange-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -319,10 +339,10 @@ const InfluencerCategories: React.FC = () => {
                 </svg>
               </div>
               <div>
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                <p className="text-2xl font-semibold text-slate-800 dark:text-white">
                   {stats.avg_influencers_per_category.toFixed(1)}
                 </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Avg Influencers</p>
+                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Avg Influencers</p>
               </div>
             </div>
           </div>
@@ -331,26 +351,28 @@ const InfluencerCategories: React.FC = () => {
 
       {/* Top Categories */}
       {stats && stats.top_categories && stats.top_categories.length > 0 && (
-        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Top Categories by Influencers</h2>
+        <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm p-6">
+          <h2 className="text-lg font-semibold text-slate-800 dark:text-white mb-4">Top Categories by Influencers</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             {stats.top_categories.map((category, index) => (
               <div
                 key={category.id}
-                className="relative bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-800/50 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                className="relative bg-slate-50 dark:bg-slate-800/50 rounded-lg p-4 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                 <div className="flex items-start justify-between mb-2">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white font-bold text-sm">
+                  <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-700 dark:text-blue-400 font-semibold text-sm">
                     {index + 1}
                   </div>
                   <div className="text-right">
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white">{category.influencers_count}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Influencers</p>
+                    <p className="text-2xl font-semibold text-slate-800 dark:text-white">
+                      {category.influencers_count}
+                    </p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Influencers</p>
                   </div>
                 </div>
-                <h3 className="font-semibold text-gray-900 dark:text-white text-sm mb-1 line-clamp-1">
+                <h3 className="font-semibold text-slate-800 dark:text-white text-sm mb-1 line-clamp-1">
                   {category.name}
                 </h3>
-                <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2">{category.description || "-"}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{category.description || "-"}</p>
               </div>
             ))}
           </div>
@@ -358,7 +380,7 @@ const InfluencerCategories: React.FC = () => {
       )}
 
       {/* Search and Bulk Actions */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-4">
+      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm p-4">
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
           <form onSubmit={handleSearch} className="flex-1 max-w-md">
             <div className="relative">
@@ -367,7 +389,7 @@ const InfluencerCategories: React.FC = () => {
                 placeholder="Search categories..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-2 pl-10 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="w-full px-4 py-2 pl-10 border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-600"
               />
               {/* <svg
                 className="w-5 h-5 absolute left-3 top-2.5 text-gray-400"
@@ -386,7 +408,7 @@ const InfluencerCategories: React.FC = () => {
 
           {selectedIds.length > 0 && (
             <div className="flex items-center gap-3">
-              <span className="text-sm text-gray-600 dark:text-gray-400">{selectedIds.length} selected</span>
+              <span className="text-sm text-slate-600 dark:text-slate-400">{selectedIds.length} selected</span>
               <button
                 onClick={() => setShowBulkDeleteConfirm(true)}
                 className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors font-medium">
@@ -406,18 +428,18 @@ const InfluencerCategories: React.FC = () => {
       </div>
 
       {/* Table */}
-      <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 overflow-hidden">
+      <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm overflow-hidden">
         {loading ? (
           <div className="p-8 text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-500 mx-auto mb-4"></div>
-            <p className="text-gray-500 dark:text-gray-400">Loading categories...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-slate-800 dark:border-slate-300 mx-auto mb-4"></div>
+            <p className="text-slate-500 dark:text-slate-400">Loading categories...</p>
           </div>
         ) : (
           <>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-gray-200 dark:border-gray-900 bg-gray-50 dark:bg-gray-800/50">
+                  <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
                     <th className="px-6 py-4 text-left">
                       <input
                         type="checkbox"
@@ -440,11 +462,11 @@ const InfluencerCategories: React.FC = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
+                <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
                   {categories.length === 0 ? (
                     <tr>
                       <td colSpan={5} className="px-6 py-10 text-center">
-                        <div className="text-gray-500 dark:text-gray-400">
+                        <div className="text-slate-500 dark:text-slate-400">
                           {searchQuery ? (
                             <>
                               <svg
@@ -485,7 +507,7 @@ const InfluencerCategories: React.FC = () => {
                     </tr>
                   ) : (
                     categories.map((category) => (
-                      <tr key={category.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                      <tr key={category.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                         <td className="px-6 py-4">
                           <input
                             type="checkbox"
@@ -496,19 +518,19 @@ const InfluencerCategories: React.FC = () => {
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white font-semibold">
+                            <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-700 dark:text-blue-400 font-semibold">
                               {category.name.charAt(0).toUpperCase()}
                             </div>
-                            <div className="font-medium text-gray-900 dark:text-white">{category.name}</div>
+                            <div className="font-medium text-slate-800 dark:text-white">{category.name}</div>
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <div className="text-sm text-gray-600 dark:text-gray-400 max-w-md truncate">
+                          <div className="text-sm text-slate-600 dark:text-slate-400 max-w-md truncate">
                             {category.description || "-"}
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <span className="inline-flex px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded text-xs font-mono">
+                          <span className="inline-flex px-2 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded text-xs font-mono">
                             {category.slug}
                           </span>
                         </td>
@@ -551,9 +573,9 @@ const InfluencerCategories: React.FC = () => {
 
             {/* Pagination */}
             {lastPage > 1 && (
-              <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-900 flex items-center justify-between">
+              <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                  <div className="text-sm text-slate-600 dark:text-slate-400">
                     Showing page {currentPage} of {lastPage} ({total} total)
                   </div>
                   <select
@@ -562,7 +584,7 @@ const InfluencerCategories: React.FC = () => {
                       setPerPage(Number(e.target.value));
                       setCurrentPage(1);
                     }}
-                    className="px-3 py-1.5 text-sm border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300">
+                    className="px-3 py-1.5 text-sm border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
                     <option value={10}>10 per page</option>
                     <option value={25}>25 per page</option>
                     <option value={50}>50 per page</option>
@@ -634,15 +656,15 @@ const InfluencerCategories: React.FC = () => {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
             {/* Modal Header */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-900">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+            <div className="flex items-center justify-between p-6 border-b border-slate-200 dark:border-slate-800">
+              <h2 className="text-xl font-semibold text-slate-800 dark:text-white">
                 {editingCategory ? "Edit Category" : "Create Category"}
               </h2>
               <button
                 onClick={handleCloseModal}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
                 <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -653,7 +675,7 @@ const InfluencerCategories: React.FC = () => {
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               {/* Name */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                   Category Name <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -661,7 +683,7 @@ const InfluencerCategories: React.FC = () => {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   required
-                  className="w-full px-4 py-2.5 text-sm rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                  className="w-full px-4 py-2.5 text-sm rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-600 focus:border-transparent"
                   placeholder="e.g. Beauty & Skincare"
                 />
                 {errors.name && <p className="mt-1 text-xs text-red-600 dark:text-red-400">{errors.name[0]}</p>}
@@ -669,12 +691,12 @@ const InfluencerCategories: React.FC = () => {
 
               {/* Description */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Description</label>
                 <textarea
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   rows={3}
-                  className="w-full px-4 py-2.5 text-sm rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 focus:border-transparent resize-none"
+                  className="w-full px-4 py-2.5 text-sm rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-600 focus:border-transparent resize-none"
                   placeholder="Brief description of this category"
                 />
                 {errors.description && (
@@ -687,13 +709,13 @@ const InfluencerCategories: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleCloseModal}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                  className="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-4 py-2 text-sm font-medium bg-brand-500 text-white rounded-lg hover:bg-brand-600 disabled:opacity-50 transition-colors">
+                  className="px-4 py-2 text-sm font-medium bg-slate-800 text-white rounded-lg hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 disabled:opacity-50 transition-colors">
                   {submitting ? "Saving..." : editingCategory ? "Update Category" : "Create Category"}
                 </button>
               </div>

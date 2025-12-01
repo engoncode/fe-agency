@@ -40,10 +40,10 @@ export default function EngagementChart() {
 
   if (loading) {
     return (
-      <div className="col-span-12 rounded-sm border border-stroke bg-white px-5 pb-5 pt-7.5 shadow-default dark:border-strokedark dark:bg-gray-900 sm:px-7.5 xl:col-span-8">
+      <div className="col-span-12 bg-white dark:bg-gray-900 rounded-xl shadow-sm p-6 xl:col-span-8">
         <div className="animate-pulse">
-          <div className="h-6 bg-gray-200 dark:bg-gray-600 rounded w-1/4 mb-4"></div>
-          <div className="h-80 bg-gray-200 dark:bg-gray-600 rounded"></div>
+          <div className="h-6 bg-slate-200 dark:bg-slate-700 rounded w-1/4 mb-4"></div>
+          <div className="h-80 bg-slate-200 dark:bg-slate-700 rounded"></div>
         </div>
       </div>
     );
@@ -141,39 +141,39 @@ export default function EngagementChart() {
   };
 
   return (
-    <div className="col-span-12 rounded-2xl border border-stroke bg-white px-6 pb-6 pt-7.5 shadow-sm hover:shadow-lg transition-shadow duration-300 dark:border-strokedark dark:bg-gray-900 sm:px-7.5 xl:col-span-8">
+    <div className="col-span-12 bg-white dark:bg-gray-900 rounded-xl shadow-sm p-6 xl:col-span-8">
       <div className="mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h4 className="text-2xl font-bold text-black dark:text-white">Engagement Overview</h4>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+          <h4 className="text-xl font-semibold text-slate-800 dark:text-white">Engagement Overview</h4>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             {chartData.date_range.start_date} - {chartData.date_range.end_date}
           </p>
         </div>
         <div className="flex gap-2">
           <button
             onClick={() => setGroupBy("day")}
-            className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
+            className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-200 ${
               groupBy === "day"
-                ? "bg-blue-500 text-white shadow-md"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-600 dark:text-white dark:hover:bg-opacity-80"
+                ? "bg-slate-800 text-white dark:bg-slate-700"
+                : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
             }`}>
             Day
           </button>
           <button
             onClick={() => setGroupBy("week")}
-            className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
+            className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-200 ${
               groupBy === "week"
-                ? "bg-blue-500 text-white shadow-md"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-600 dark:text-white dark:hover:bg-opacity-80"
+                ? "bg-slate-800 text-white dark:bg-slate-700"
+                : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
             }`}>
             Week
           </button>
           <button
             onClick={() => setGroupBy("month")}
-            className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
+            className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-200 ${
               groupBy === "month"
-                ? "bg-blue-500 text-white shadow-md"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-600 dark:text-white dark:hover:bg-opacity-80"
+                ? "bg-slate-800 text-white dark:bg-slate-700"
+                : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
             }`}>
             Month
           </button>
@@ -182,33 +182,33 @@ export default function EngagementChart() {
 
       {/* Summary Stats */}
       <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-5">
-        <div className="rounded-xl border border-stroke  p-3 dark:border-strokedark dark:from-meta-4 dark:to-meta-4">
-          <span className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Total Posts</span>
-          <p className="text-xl font-bold text-black dark:text-white">
+        <div className="rounded-lg bg-slate-50 dark:bg-slate-800/50 p-3">
+          <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Total Posts</span>
+          <p className="text-xl font-semibold text-slate-800 dark:text-white">
             {chartData.summary.total_posts.toLocaleString()}
           </p>
         </div>
-        <div className="rounded-xl border border-stroke  p-3 dark:border-strokedark dark:from-meta-4 dark:to-meta-4">
-          <span className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Total Engagement</span>
-          <p className="text-xl font-bold text-black dark:text-white">
+        <div className="rounded-lg bg-slate-50 dark:bg-slate-800/50 p-3">
+          <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Total Engagement</span>
+          <p className="text-xl font-semibold text-slate-800 dark:text-white">
             {chartData.summary.total_engagement.toLocaleString()}
           </p>
         </div>
-        <div className="rounded-xl border border-stroke  p-3 dark:border-strokedark dark:from-meta-4 dark:to-meta-4">
-          <span className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Total Likes</span>
-          <p className="text-xl font-bold text-black dark:text-white">
+        <div className="rounded-lg bg-slate-50 dark:bg-slate-800/50 p-3">
+          <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Total Likes</span>
+          <p className="text-xl font-semibold text-slate-800 dark:text-white">
             {chartData.summary.total_likes.toLocaleString()}
           </p>
         </div>
-        <div className="rounded-xl border border-stroke p-3 dark:border-strokedark dark:from-meta-4 dark:to-meta-4">
-          <span className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Total Comments</span>
-          <p className="text-xl font-bold text-black dark:text-white">
+        <div className="rounded-lg bg-slate-50 dark:bg-slate-800/50 p-3">
+          <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Total Comments</span>
+          <p className="text-xl font-semibold text-slate-800 dark:text-white">
             {chartData.summary.total_comments.toLocaleString()}
           </p>
         </div>
-        <div className="rounded-xl border border-stroke p-3 dark:border-strokedark dark:from-meta-4 dark:to-meta-4">
-          <span className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Avg. Engagement</span>
-          <p className="text-xl font-bold text-black dark:text-white">
+        <div className="rounded-lg bg-slate-50 dark:bg-slate-800/50 p-3">
+          <span className="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Avg. Engagement</span>
+          <p className="text-xl font-semibold text-slate-800 dark:text-white">
             {chartData.summary.average_engagement_per_post.toLocaleString()}
           </p>
         </div>

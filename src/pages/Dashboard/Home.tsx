@@ -11,7 +11,7 @@ export default function Home() {
         description="Admin dashboard for influencer agency management"
       />
 
-      <div className="space-y-6">
+      <div className="min-h-screen bg-slate-50 dark:bg-gray-950 -m-6 p-6 space-y-6">
         {/* Metrics Cards */}
         <DashboardMetrics />
 
