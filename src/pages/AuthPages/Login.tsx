@@ -58,7 +58,7 @@ const Login: React.FC = () => {
           <div className="p-8">
             {/* Logo */}
             <div className="flex justify-center mb-8">
-              <img src="images/logo/logo-dark.svg" alt="Logo" className="h-12 w-auto dark:hidden" />
+              <img src="images/logo/sd-logo-dark.svg" alt="Logo" className="h-12 w-auto dark:hidden" />
               <img src="images/logo/logo.svg" alt="Logo" className="h-12 w-auto hidden dark:block" />
             </div>
 
