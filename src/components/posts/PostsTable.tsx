@@ -152,7 +152,7 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts, onUpdateStatus }) => {
                       )}
                       <div>
                         <div className="text-sm text-slate-900 dark:text-slate-100">{post.campaign.campaign_name}</div>
-                        <div className="text-xs text-slate-500 dark:text-slate-400">ID: {post.campaign_id}</div>
+                        {/* <div className="text-xs text-slate-500 dark:text-slate-400">ID: {post.campaign_id}</div> */}
                       </div>
                     </div>
                   </td>
