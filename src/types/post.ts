@@ -20,6 +20,7 @@ export interface Post {
   scheduled_at?: string | null;
   created_at: string;
   updated_at: string;
+  engagement_rate: number;
   influencer: {
     id: number;
     user_id: number;
