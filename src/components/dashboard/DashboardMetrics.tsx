@@ -23,13 +23,20 @@ export default function DashboardMetrics() {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="bg-white dark:bg-gray-900 rounded-xl shadow-sm p-6">
+          <div
+            key={i}
+            className="bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 p-5">
             <div className="animate-pulse">
-              <div className="h-12 w-12 rounded-lg bg-slate-200 dark:bg-slate-700 mb-4"></div>
-              <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-3/4 mb-2"></div>
-              <div className="h-6 bg-slate-200 dark:bg-slate-700 rounded w-1/2"></div>
+              <div className="flex items-start justify-between">
+                <div className="flex-1">
+                  <div className="h-8 bg-slate-200 dark:bg-slate-700 rounded w-20 mb-2"></div>
+                  <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-24 mb-1"></div>
+                  <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-16"></div>
+                </div>
+                <div className="h-14 w-14 rounded-xl bg-slate-200 dark:bg-slate-700"></div>
+              </div>
             </div>
           </div>
         ))}
@@ -43,91 +50,118 @@ export default function DashboardMetrics() {
     {
       title: "Total Influencers",
       value: stats.total_influencers,
+      trend: `${stats.total_influencers_growth >= 0 ? "+" : ""}${stats.total_influencers_growth}%`,
+      trendUp: stats.total_influencers_growth >= 0,
       icon: (
-        <svg
-          className="fill-current"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path d="M16 11C17.66 11 18.99 9.66 18.99 8C18.99 6.34 17.66 5 16 5C14.34 5 13 6.34 13 8C13 9.66 14.34 11 16 11ZM8 11C9.66 11 10.99 9.66 10.99 8C10.99 6.34 9.66 5 8 5C6.34 5 5 6.34 5 8C5 9.66 6.34 11 8 11ZM8 13C5.67 13 1 14.17 1 16.5V19H15V16.5C15 14.17 10.33 13 8 13ZM16 13C15.71 13 15.38 13.02 15.03 13.05C16.19 13.89 17 15.02 17 16.5V19H23V16.5C23 14.17 18.33 13 16 13Z" />
+        <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+          />
         </svg>
       ),
-      iconBg: "bg-blue-100 dark:bg-blue-900/30",
+      bgGradient: "from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20",
       iconColor: "text-blue-600 dark:text-blue-400",
+      borderColor: "border-blue-200 dark:border-blue-800/50",
     },
     {
       title: "Active Campaigns",
       value: stats.active_campaigns,
+      trend: `${stats.active_campaigns_growth >= 0 ? "+" : ""}${stats.active_campaigns_growth}%`,
+      trendUp: stats.active_campaigns_growth >= 0,
       icon: (
-        <svg
-          className="fill-current"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V5H19V19ZM7 10H9V17H7V10ZM11 7H13V17H11V7ZM15 13H17V17H15V13Z" />
+        <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
         </svg>
       ),
-      iconBg: "bg-purple-100 dark:bg-purple-900/30",
+      bgGradient: "from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20",
       iconColor: "text-purple-600 dark:text-purple-400",
+      borderColor: "border-purple-200 dark:border-purple-800/50",
     },
     {
       title: "Pending Posts",
       value: stats.pending_posts,
+      trend: `${stats.pending_posts_growth >= 0 ? "+" : ""}${stats.pending_posts_growth}%`,
+      trendUp: stats.pending_posts_growth >= 0,
       icon: (
-        <svg
-          className="fill-current"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM12.5 7H11V13L16.2 16.2L17 14.9L12.5 12.2V7Z" />
+        <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
         </svg>
       ),
-      iconBg: "bg-orange-100 dark:bg-orange-900/30",
+      bgGradient: "from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20",
       iconColor: "text-orange-600 dark:text-orange-400",
+      borderColor: "border-orange-200 dark:border-orange-800/50",
     },
     {
       title: "Total Campaigns",
       value: stats.total_campaigns,
+      trend: `${stats.total_campaigns_growth >= 0 ? "+" : ""}${stats.total_campaigns_growth}%`,
+      trendUp: stats.total_campaigns_growth >= 0,
       icon: (
-        <svg
-          className="fill-current"
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 6H12L10 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6ZM20 18H4V8H20V18Z" />
+        <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+          />
         </svg>
       ),
-      iconBg: "bg-green-100 dark:bg-green-900/30",
+      bgGradient: "from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20",
       iconColor: "text-green-600 dark:text-green-400",
+      borderColor: "border-green-200 dark:border-green-800/50",
     },
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
       {metrics.map((metric, index) => (
         <div
           key={index}
-          className="bg-white dark:bg-gray-900 rounded-xl shadow-sm p-6 hover:shadow-md transition-shadow duration-200">
+          className="group relative bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 p-5 hover:shadow-lg hover:shadow-slate-200/50 dark:hover:shadow-slate-900/50 hover:border-slate-200 dark:hover:border-slate-700 transition-all duration-300">
           <div className="flex items-start justify-between">
+            {/* Left side: Number and Title */}
+            <div className="flex-1">
+              <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-1">
+                {metric.value.toLocaleString()}
+              </h3>
+              <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">{metric.title}</p>
+              {/* Trend Indicator */}
+              <div className="flex items-center gap-1">
+                <svg
+                  className={`w-3.5 h-3.5 ${metric.trendUp ? "text-green-500" : "text-red-500"}`}
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d={metric.trendUp ? "M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" : "M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"}
+                  />
+                </svg>
+                <span
+                  className={`text-xs font-semibold ${
+                    metric.trendUp ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"
+                  }`}>
+                  {metric.trend}
+                </span>
+                <span className="text-xs text-slate-500 dark:text-slate-500">vs last month</span>
+              </div>
+            </div>
+
+            {/* Right side: Icon with gradient background */}
             <div
-              className={`flex h-12 w-12 items-center justify-center rounded-lg ${metric.iconBg} ${metric.iconColor}`}>
+              className={`flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br ${metric.bgGradient} ${metric.iconColor} border ${metric.borderColor} group-hover:scale-110 transition-transform duration-300`}>
               {metric.icon}
             </div>
-          </div>
-
-          <div className="mt-4">
-            <h4 className="text-2xl font-semibold text-slate-800 dark:text-white mb-1">
-              {metric.value.toLocaleString()}
-            </h4>
-            <span className="text-sm font-medium text-slate-500 dark:text-slate-400">{metric.title}</span>
           </div>
         </div>
       ))}

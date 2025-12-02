@@ -2,10 +2,20 @@ import api from "./api";
 
 export interface DashboardStats {
   total_influencers: number;
+  total_influencers_growth: number;
   active_campaigns: number;
+  active_campaigns_growth: number;
   pending_posts: number;
+  pending_posts_growth: number;
   total_campaigns: number;
+  total_campaigns_growth: number;
+  total_engagement: number;
+  total_engagement_growth: number;
   date_range: {
+    start_date: string;
+    end_date: string;
+  };
+  previous_period: {
     start_date: string;
     end_date: string;
   };

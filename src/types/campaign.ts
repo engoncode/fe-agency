@@ -33,6 +33,45 @@ export interface Campaign {
   platform_deliverables?: PlatformDeliverable[];
   categories?: Array<{ id: number; name: string }>;
   image?: string | null;
+  invited_influencers_count?: number;
+  approved_posts_count?: number;
+  posts?: Array<{
+    id: number;
+    user_id: number;
+    instagram_media_id?: string | null;
+    influencer_id: number;
+    campaign_id: number;
+    platform: "instagram" | "tiktok";
+    platform_post_id: string;
+    platform_post_url: string;
+    post_url: string;
+    caption?: string | null;
+    thumbnail_url: string;
+    engagement: number;
+    play_count: number;
+    like_count: number;
+    comment_count: number;
+    reach: number;
+    status: "pending" | "approved" | "rejected";
+    posted_at?: string | null;
+    scheduled_at?: string | null;
+    created_at: string;
+    updated_at: string;
+    engagement_rate: number;
+    duration?: number;
+    user: {
+      id: number;
+      name: string;
+      email: string;
+      instagram_username?: string;
+      tiktok_username?: string;
+      tiktok_display_name?: string;
+    };
+    influencer: {
+      id: number;
+      user_id: number;
+    };
+  }>;
 }
 
 export interface CampaignFormData {

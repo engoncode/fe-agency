@@ -6,7 +6,7 @@ import type { Influencer, InfluencerMeta } from "../types/influencer";
 import type { Category } from "../types/category";
 import { useNotification } from "../components/notifications/NotificationProvider";
 import ConfirmationDialog from "../components/notifications/ConfirmationDialog";
-import Tooltip from "../components/common/Tooltip";
+// import Tooltip from "../components/common/Tooltip";
 
 const Influencers: React.FC = () => {
   const navigate = useNavigate();
@@ -196,201 +196,183 @@ const Influencers: React.FC = () => {
         ) : (
           <>
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-gray-200 dark:border-gray-900 bg-gray-50 dark:bg-gray-800/50">
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  <tr className="border-b border-slate-200 dark:border-slate-800">
+                    <th className="py-2 px-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400">
                       Influencer
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="py-2 px-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400">
                       Instagram
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="py-2 px-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400">
                       TikTok
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="py-2 px-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400">
                       Categories
                     </th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                      Platforms
-                    </th>
-                    <th className="px-6 py-4 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    <th className="py-2 px-3 text-right text-xs font-medium text-slate-500 dark:text-slate-400">
                       Actions
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
-                  {influencers.map((influencer) => (
-                    <tr key={influencer.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white font-semibold">
-                            {influencer.name.charAt(0).toUpperCase()}
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                  {influencers.map((influencer) => {
+                    // const hasInstagram = !!(influencer as any).instagram_avatar_url || !!influencer.instagram_username;
+                    // const hasTikTok = !!(influencer as any).tiktok_avatar_url || !!(influencer as any).tiktok_username;
+
+                    return (
+                      <tr
+                        key={influencer.id}
+                        className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                        <td className="py-2 px-3">
+                          <div className="flex items-center gap-2">
+                            {/* Stacked Avatar Group */}
+                            <div className="flex -space-x-2">
+                              {(influencer as any).instagram_avatar_url && (
+                                <img
+                                  src={(influencer as any).instagram_avatar_url}
+                                  alt="Instagram"
+                                  className="w-8 h-8 rounded-full object-cover border-2 border-white dark:border-slate-900 ring-1 ring-slate-200 dark:ring-slate-700"
+                                />
+                              )}
+                              {(influencer as any).tiktok_avatar_url && (
+                                <img
+                                  src={(influencer as any).tiktok_avatar_url}
+                                  alt="TikTok"
+                                  className="w-8 h-8 rounded-full object-cover border-2 border-white dark:border-slate-900 ring-1 ring-slate-200 dark:ring-slate-700"
+                                />
+                              )}
+                              {!(influencer as any).instagram_avatar_url && !(influencer as any).tiktok_avatar_url && (
+                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white font-semibold text-xs border-2 border-white dark:border-slate-900">
+                                  {influencer.name.charAt(0).toUpperCase()}
+                                </div>
+                              )}
+                            </div>
+
+                            {/* Info */}
+                            <div className="min-w-0 flex-1">
+                              <p className="text-xs font-medium text-slate-900 dark:text-slate-100 truncate">
+                                {influencer.name}
+                              </p>
+                              <p className="text-xs text-slate-500 dark:text-slate-400 truncate">{influencer.email}</p>
+                            </div>
                           </div>
-                          <div>
-                            <div className="font-medium text-gray-900 dark:text-white">{influencer.name}</div>
-                            <div className="text-sm text-gray-500 dark:text-gray-400">{influencer.email}</div>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        {influencer.instagram_username ? (
-                          <Tooltip content={influencer.name || `@${influencer.instagram_username}`}>
-                            <span className="flex items-center gap-2">
-                              <svg className="w-4 h-4 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
+                        </td>
+                        <td className="py-2 px-3">
+                          {influencer.instagram_username ? (
+                            <div className="flex items-center gap-1.5">
+                              <svg
+                                className="w-3.5 h-3.5 text-pink-500 flex-shrink-0"
+                                fill="currentColor"
+                                viewBox="0 0 24 24">
                                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                               </svg>
-                              <span className="font-semibold text-gray-700 dark:text-gray-300">
+                              <span className="text-xs text-slate-600 dark:text-slate-400">
                                 @{influencer.instagram_username}
                               </span>
-                            </span>
-                          </Tooltip>
-                        ) : (
-                          <span className="text-gray-400 dark:text-gray-500">-</span>
-                        )}
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="text-gray-900 dark:text-white font-medium flex items-center gap-2">
+                            </div>
+                          ) : (
+                            <span className="text-xs text-slate-400 dark:text-slate-500">-</span>
+                          )}
+                        </td>
+                        <td className="py-2 px-3">
                           {(influencer as any).tiktok_username ? (
-                            <Tooltip
-                              content={
-                                (influencer as any).tiktok_display_name || `@${(influencer as any).tiktok_username}`
-                              }>
-                              <a
-                                href={`https://www.tiktok.com/@${(influencer as any).tiktok_username}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-2">
-                                <img
-                                  src="https://cdn.jsdelivr.net/npm/simple-icons@v8/icons/tiktok.svg"
-                                  alt="TikTok"
-                                  className="w-4 h-4 object-contain"
-                                  aria-hidden
-                                  onError={(e) => {
-                                    const el = e.currentTarget as HTMLImageElement;
-                                    el.onerror = null;
-                                    el.src =
-                                      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/TikTok_logo.svg/1200px-TikTok_logo.svg.png";
-                                  }}
-                                />
-                                <span>@{(influencer as any).tiktok_username}</span>
-                              </a>
-                            </Tooltip>
-                          ) : (
-                            <span className="text-gray-400 dark:text-gray-500">-</span>
-                          )}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="flex flex-wrap gap-1">
-                          {influencer.influencer?.categories && influencer.influencer.categories.length > 0 ? (
-                            influencer.influencer.categories.slice(0, 2).map((cat) => (
-                              <span
-                                key={cat.id}
-                                className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded text-xs">
-                                {cat.name}
+                            <div className="flex items-center gap-1.5">
+                              <svg
+                                className="w-3.5 h-3.5 text-black dark:text-white flex-shrink-0"
+                                fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z" />
+                              </svg>
+                              <span className="text-xs text-slate-600 dark:text-slate-400">
+                                @{(influencer as any).tiktok_username}
                               </span>
-                            ))
-                          ) : (
-                            <span className="text-gray-400 dark:text-gray-500 text-sm">-</span>
-                          )}
-                          {influencer.influencer?.categories && influencer.influencer.categories.length > 2 && (
-                            <span className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 rounded text-xs">
-                              +{influencer.influencer.categories.length - 2}
-                            </span>
-                          )}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          {(influencer as any).tiktok_avatar_url ? (
-                            <img
-                              src={(influencer as any).tiktok_avatar_url}
-                              alt={
-                                (influencer as any).tiktok_display_name ||
-                                (influencer as any).tiktok_username ||
-                                "TikTok"
-                              }
-                              className="w-8 h-8 rounded-full object-cover border border-gray-100 dark:border-gray-800"
-                            />
-                          ) : (
-                            <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-xs text-gray-500">
-                              TT
                             </div>
-                          )}
-
-                          {(influencer as any).instagram_avatar_url ? (
-                            <img
-                              src={(influencer as any).instagram_avatar_url}
-                              alt={(influencer as any).instagram_username || "Instagram"}
-                              className="w-8 h-8 rounded-full object-cover border border-gray-100 dark:border-gray-800"
-                            />
                           ) : (
-                            <div className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-xs text-gray-500">
-                              IG
-                            </div>
+                            <span className="text-xs text-slate-400 dark:text-slate-500">-</span>
                           )}
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center justify-end gap-2">
-                          <button
-                            onClick={() => navigate(`/influencers/${influencer.id}`)}
-                            className="p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-                            title="View Details">
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                              />
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                              />
-                            </svg>
-                          </button>
-                          <button
-                            onClick={() => navigate(`/influencers/${influencer.id}/edit`)}
-                            className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
-                            title="Edit">
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                              />
-                            </svg>
-                          </button>
-                          <button
-                            onClick={() => handleDelete(influencer.id)}
-                            className="p-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
-                            title="Delete">
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                              />
-                            </svg>
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                        <td className="py-2 px-3">
+                          <div className="flex flex-wrap gap-1">
+                            {influencer.influencer?.categories && influencer.influencer.categories.length > 0 ? (
+                              influencer.influencer.categories.slice(0, 2).map((cat) => (
+                                <span
+                                  key={cat.id}
+                                  className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded text-xs">
+                                  {cat.name}
+                                </span>
+                              ))
+                            ) : (
+                              <span className="text-xs text-slate-400 dark:text-slate-500">-</span>
+                            )}
+                            {influencer.influencer?.categories && influencer.influencer.categories.length > 2 && (
+                              <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 rounded text-xs">
+                                +{influencer.influencer.categories.length - 2}
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                        <td className="py-2 px-3">
+                          <div className="flex items-center justify-end gap-1">
+                            <button
+                              onClick={() => navigate(`/influencers/${influencer.id}`)}
+                              className="p-1.5 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded transition-colors"
+                              title="View Details">
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                />
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                                />
+                              </svg>
+                            </button>
+                            <button
+                              onClick={() => navigate(`/influencers/${influencer.id}/edit`)}
+                              className="p-1.5 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded transition-colors"
+                              title="Edit">
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                                />
+                              </svg>
+                            </button>
+                            <button
+                              onClick={() => handleDelete(influencer.id)}
+                              className="p-1.5 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors"
+                              title="Delete">
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
 
             {/* Pagination */}
             {meta && meta.last_page > 1 && (
-              <div className="border-t border-gray-200 dark:border-gray-900 px-6 py-4 flex items-center justify-between">
-                <div className="text-sm text-gray-500 dark:text-gray-400">
+              <div className="border-t border-slate-200 dark:border-slate-800 px-3 py-3 flex items-center justify-between">
+                <div className="text-xs text-slate-500 dark:text-slate-400">
                   Showing {(meta.current_page - 1) * meta.per_page + 1} to{" "}
                   {Math.min(meta.current_page * meta.per_page, meta.total)} of {meta.total} influencers
                 </div>
