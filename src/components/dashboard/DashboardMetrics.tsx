@@ -23,8 +23,8 @@ export default function DashboardMetrics() {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {[1, 2, 3, 4].map((i) => (
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5">
+        {[1, 2, 3, 4, 5].map((i) => (
           <div
             key={i}
             className="bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 p-5">
@@ -118,10 +118,29 @@ export default function DashboardMetrics() {
       iconColor: "text-green-600 dark:text-green-400",
       borderColor: "border-green-200 dark:border-green-800/50",
     },
+    {
+      title: "Total Engagement",
+      value: stats.total_engagement,
+      trend: `${stats.total_engagement_growth >= 0 ? "+" : ""}${stats.total_engagement_growth}%`,
+      trendUp: stats.total_engagement_growth >= 0,
+      icon: (
+        <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+          />
+        </svg>
+      ),
+      bgGradient: "from-pink-50 to-pink-100 dark:from-pink-900/20 dark:to-pink-800/20",
+      iconColor: "text-pink-600 dark:text-pink-400",
+      borderColor: "border-pink-200 dark:border-pink-800/50",
+    },
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5">
       {metrics.map((metric, index) => (
         <div
           key={index}
