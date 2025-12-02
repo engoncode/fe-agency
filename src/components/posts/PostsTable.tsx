@@ -27,7 +27,8 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts, onUpdateStatus }) => {
     }
   };
 
-  const formatNumber = (num: number) => {
+  const formatNumber = (num: number | null | undefined) => {
+    if (num == null) return "0";
     if (num >= 1000000) {
       return (num / 1000000).toFixed(1) + "M";
     }
@@ -291,7 +292,7 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts, onUpdateStatus }) => {
                             />
                           </svg>
                           <span className="text-xs text-slate-900 dark:text-slate-100">
-                            {post.engagement_rate.toFixed(2)}%
+                            {post.engagement_rate != null ? post.engagement_rate.toFixed(2) : "0.00"}%
                           </span>
                         </div>
                       </div>

@@ -52,7 +52,8 @@ const CampaignDetail: React.FC = () => {
     });
   };
 
-  const formatNumber = (num: number) => {
+  const formatNumber = (num: number | null | undefined) => {
+    if (num == null) return "0";
     if (num >= 1000000) {
       return (num / 1000000).toFixed(1) + "M";
     }
@@ -594,7 +595,7 @@ const CampaignDetail: React.FC = () => {
                                     />
                                   </svg>
                                   <span className="text-xs text-slate-600 dark:text-slate-400">
-                                    {post.engagement_rate.toFixed(2)}%
+                                    {post.engagement_rate != null ? post.engagement_rate.toFixed(2) : "0.00"}%
                                   </span>
                                 </div>
                               </div>
