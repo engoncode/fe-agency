@@ -1,5 +1,6 @@
 import React from "react";
 import type { Post } from "../../types/post";
+import { getImageUrl } from "../../services/api";
 
 interface PostsTableProps {
   posts: Post[];
@@ -20,14 +21,52 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts, onUpdateStatus }) => {
     }
   };
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("id-ID", {
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+  const formatRelativeTime = (dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+    if (diffInSeconds < 60) {
+      return `${diffInSeconds} detik yang lalu`;
+    }
+
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    if (diffInMinutes < 60) {
+      return `${diffInMinutes} menit yang lalu`;
+    }
+
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24) {
+      return `${diffInHours} jam yang lalu`;
+    }
+
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays < 7) {
+      return `${diffInDays} hari yang lalu`;
+    }
+
+    const diffInWeeks = Math.floor(diffInDays / 7);
+    if (diffInWeeks < 4) {
+      return `${diffInWeeks} minggu yang lalu`;
+    }
+
+    const diffInMonths = Math.floor(diffInDays / 30);
+    if (diffInMonths < 12) {
+      return `${diffInMonths} bulan yang lalu`;
+    }
+
+    const diffInYears = Math.floor(diffInDays / 365);
+    return `${diffInYears} tahun yang lalu`;
+  };
+
+  const formatNumber = (num: number) => {
+    if (num >= 1000000) {
+      return (num / 1000000).toFixed(1) + "M";
+    }
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1) + "K";
+    }
+    return num.toString();
   };
 
   return (
@@ -36,9 +75,14 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts, onUpdateStatus }) => {
         <thead>
           <tr className="border-b border-gray-200 dark:border-gray-800">
             <th className="py-3 px-4 text-left font-medium text-gray-500 dark:text-gray-400">Campaign</th>
+            <th className="py-3 px-4 text-left font-medium text-gray-500 dark:text-gray-400">Image</th>
             <th className="py-3 px-4 text-left font-medium text-gray-500 dark:text-gray-400">Influencer</th>
             <th className="py-3 px-4 text-left font-medium text-gray-500 dark:text-gray-400">Platform</th>
             <th className="py-3 px-4 text-left font-medium text-gray-500 dark:text-gray-400">Thumbnail</th>
+            <th className="py-3 px-4 text-left font-medium text-gray-500 dark:text-gray-400">Engagement</th>
+            <th className="py-3 px-4 text-left font-medium text-gray-500 dark:text-gray-400">Likes</th>
+            <th className="py-3 px-4 text-left font-medium text-gray-500 dark:text-gray-400">Comments</th>
+            <th className="py-3 px-4 text-left font-medium text-gray-500 dark:text-gray-400">Reach</th>
             <th className="py-3 px-4 text-left font-medium text-gray-500 dark:text-gray-400">Status</th>
             <th className="py-3 px-4 text-left font-medium text-gray-500 dark:text-gray-400">Created At</th>
             <th className="py-3 px-4 text-right font-medium text-gray-500 dark:text-gray-400">Actions</th>
@@ -47,7 +91,7 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts, onUpdateStatus }) => {
         <tbody>
           {!posts || posts.length === 0 ? (
             <tr>
-              <td colSpan={7} className="py-10 text-center text-gray-500 dark:text-gray-400">
+              <td colSpan={12} className="py-10 text-center text-gray-500 dark:text-gray-400">
                 No posts found
               </td>
             </tr>
@@ -57,11 +101,34 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts, onUpdateStatus }) => {
                 key={post.id}
                 className="border-b border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                 <td className="py-3 px-4">
-                  <div className="font-medium text-gray-900 dark:text-gray-100">{post.campaign.campaign_name}</div>
+                  <div className="text-sm text-gray-900 dark:text-gray-100">{post.campaign.campaign_name}</div>
                   <div className="text-xs text-gray-500 dark:text-gray-400">ID: {post.campaign_id}</div>
                 </td>
                 <td className="py-3 px-4">
-                  <div className="font-medium text-gray-900 dark:text-gray-100">{post.influencer.user.name}</div>
+                  {post.campaign.image ? (
+                    <img
+                      src={getImageUrl(post.campaign.image) || "/images/placeholder.png"}
+                      alt={post.campaign.campaign_name}
+                      className="w-19 h-9 object-cover rounded"
+                      onError={(e) => {
+                        e.currentTarget.src = "/images/placeholder.png";
+                      }}
+                    />
+                  ) : (
+                    <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded flex items-center justify-center">
+                      <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </td>
+                <td className="py-3 px-4">
+                  <div className="text-sm text-gray-900 dark:text-gray-100">{post.influencer.user.name}</div>
                   <div className="text-xs text-gray-500 dark:text-gray-400">
                     {post.platform === "instagram"
                       ? post.influencer.user.instagram_username
@@ -79,7 +146,7 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts, onUpdateStatus }) => {
                         <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
                       </svg>
                     )}
-                    <span className="text-sm font-medium capitalize dark:text-white">{post.platform}</span>
+                    <span className="text-xs capitalize dark:text-white">{post.platform}</span>
                   </div>
                 </td>
                 <td className="py-3 px-4">
@@ -93,11 +160,26 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts, onUpdateStatus }) => {
                   />
                 </td>
                 <td className="py-3 px-4">
+                  <div className="text-sm text-gray-900 dark:text-gray-100">{formatNumber(post.engagement)}</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400">total</div>
+                </td>
+                <td className="py-3 px-4">
+                  <div className="text-sm text-gray-900 dark:text-gray-100">{formatNumber(post.like_count)}</div>
+                </td>
+                <td className="py-3 px-4">
+                  <div className="text-sm text-gray-900 dark:text-gray-100">{formatNumber(post.comment_count)}</div>
+                </td>
+                <td className="py-3 px-4">
+                  <div className="text-sm text-gray-900 dark:text-gray-100">{formatNumber(post.reach)}</div>
+                </td>
+                <td className="py-3 px-4">
                   <span className={`px-2 py-1 rounded text-xs font-medium border ${getStatusColor(post.status)}`}>
                     {post.status}
                   </span>
                 </td>
-                <td className="py-3 px-4 text-gray-700 dark:text-gray-300">{formatDate(post.created_at)}</td>
+                <td className="py-3 px-4">
+                  <div className="text-sm text-gray-700 dark:text-gray-300">{formatRelativeTime(post.created_at)}</div>
+                </td>
                 <td className="py-3 px-4 text-right">
                   <div className="flex items-center justify-end gap-2">
                     <select
