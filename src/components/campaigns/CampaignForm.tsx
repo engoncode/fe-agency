@@ -28,6 +28,11 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
     product_name: campaign?.product_name || "",
     campaign_goal: campaign?.campaign_goal || "",
     kpi_target: campaign?.kpi_target || "",
+    target_reach: campaign?.target_reach || 0,
+    target_engagement: campaign?.target_engagement || 0,
+    target_engagement_rate: campaign?.target_engagement_rate || 0,
+    target_impressions: campaign?.target_impressions || 0,
+    bonus_multiplier: campaign?.bonus_multiplier || 1.0,
     key_messages: campaign?.key_messages || [],
     mandatory_hashtags: campaign?.mandatory_hashtags || [],
     mandatory_cta: campaign?.mandatory_cta || "",
@@ -189,6 +194,11 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
         description: data.campaign_goal_refined ?? data.description ?? prev.description,
         campaign_goal: data.campaign_goal ?? prev.campaign_goal,
         kpi_target: data.kpi_target ?? prev.kpi_target,
+        target_reach: data.target_reach ?? prev.target_reach,
+        target_engagement: data.target_engagement ?? prev.target_engagement,
+        target_engagement_rate: data.target_engagement_rate ?? prev.target_engagement_rate,
+        target_impressions: data.target_impressions ?? prev.target_impressions,
+        bonus_multiplier: data.bonus_multiplier ?? prev.bonus_multiplier,
         mandatory_cta: data.mandatory_cta ?? prev.mandatory_cta,
         rules: data.rules ?? prev.rules,
         key_messages: Array.isArray(data.key_messages)
@@ -495,6 +505,90 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
             />
             <FieldError messages={errors.kpi_target} />
+          </div>
+
+          {/* Target Metrics */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Target Reach</label>
+              <input
+                type="number"
+                name="target_reach"
+                value={formData.target_reach}
+                onChange={handleChange}
+                disabled={isGeneratingAI}
+                placeholder="e.g., 500000"
+                className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
+              />
+              <FieldError messages={errors.target_reach} />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Target Engagement
+              </label>
+              <input
+                type="number"
+                name="target_engagement"
+                value={formData.target_engagement}
+                onChange={handleChange}
+                disabled={isGeneratingAI}
+                placeholder="e.g., 25000"
+                className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
+              />
+              <FieldError messages={errors.target_engagement} />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Target Engagement Rate (%)
+              </label>
+              <input
+                type="number"
+                step="0.1"
+                name="target_engagement_rate"
+                value={formData.target_engagement_rate}
+                onChange={handleChange}
+                disabled={isGeneratingAI}
+                placeholder="e.g., 5.0"
+                className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
+              />
+              <FieldError messages={errors.target_engagement_rate} />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Target Impressions
+              </label>
+              <input
+                type="number"
+                name="target_impressions"
+                value={formData.target_impressions}
+                onChange={handleChange}
+                disabled={isGeneratingAI}
+                placeholder="e.g., 750000"
+                className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
+              />
+              <FieldError messages={errors.target_impressions} />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Bonus Multiplier</label>
+            <input
+              type="number"
+              step="0.1"
+              name="bonus_multiplier"
+              value={formData.bonus_multiplier}
+              onChange={handleChange}
+              disabled={isGeneratingAI}
+              placeholder="e.g., 1.5"
+              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
+            />
+            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+              Multiplier for bonus calculation when targets are exceeded
+            </p>
+            <FieldError messages={errors.bonus_multiplier} />
           </div>
         </div>
       </div>

@@ -47,7 +47,7 @@ const StatusCards: React.FC<StatusCardsProps> = ({ statusCounts, onStatusClick, 
       iconPath: "M13 10V3L4 14h7v7l9-11h-7z",
       bgColor: "bg-white dark:bg-slate-900",
       iconColor: "text-green-500",
-      borderColor: "border-slate-200 dark:border-slate-800",
+      borderColor: "border-cyan-500 dark:border-cyan-400",
     },
     {
       status: "expired" as const,
@@ -64,14 +64,17 @@ const StatusCards: React.FC<StatusCardsProps> = ({ statusCounts, onStatusClick, 
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
       {cards.map((card) => {
         const isActive = currentStatus === card.status;
+        const isActiveStatus = card.status === "active";
         return (
           <button
             key={card.status}
             onClick={() => onStatusClick?.(card.status)}
-            className={`${card.bgColor} ${
-              card.borderColor
-            } border rounded-lg p-4 transition-all hover:border-slate-300 dark:hover:border-slate-700 ${
-              isActive ? "ring-2 ring-sky-500 border-sky-500" : ""
+            className={`${card.bgColor} rounded-lg p-4 transition-all ${
+              isActive
+                ? "ring-2 ring-sky-500 border-1 border-sky-500"
+                : isActiveStatus
+                ? "border border-cyan-500 dark:border-cyan-400 hover:border-cyan-600 dark:hover:border-cyan-300"
+                : `border ${card.borderColor} hover:border-slate-300 dark:hover:border-slate-700`
             }`}>
             <div className="flex items-center justify-between">
               <div className="text-left">

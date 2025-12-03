@@ -18,6 +18,11 @@ export interface Campaign {
   product_name?: string;
   campaign_goal?: string;
   kpi_target?: string;
+  target_reach?: number;
+  target_engagement?: number;
+  target_engagement_rate?: number;
+  target_impressions?: number;
+  bonus_multiplier?: number;
   key_messages?: string[];
   mandatory_hashtags?: string[];
   mandatory_cta?: string;
@@ -80,6 +85,11 @@ export interface CampaignFormData {
   campaign_goal?: string;
   campaign_goal_refined?: string;
   kpi_target?: string;
+  target_reach?: number;
+  target_engagement?: number;
+  target_engagement_rate?: number;
+  target_impressions?: number;
+  bonus_multiplier?: number;
   key_messages?: string[];
   mandatory_hashtags?: string[];
   mandatory_cta?: string;
