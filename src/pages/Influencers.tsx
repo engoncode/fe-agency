@@ -134,7 +134,7 @@ const Influencers: React.FC = () => {
         </div>
         <button
           onClick={() => navigate("/influencers/create")}
-          className="flex items-center gap-2 px-4 py-2 bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition-colors font-medium">
+          className="flex items-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors font-medium">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
@@ -244,7 +244,7 @@ const Influencers: React.FC = () => {
                                 />
                               )}
                               {!(influencer as any).instagram_avatar_url && !(influencer as any).tiktok_avatar_url && (
-                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white font-semibold text-xs border-2 border-white dark:border-slate-900">
+                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-400 to-sky-600 flex items-center justify-center text-white font-semibold text-xs border-2 border-white dark:border-slate-900">
                                   {influencer.name.charAt(0).toUpperCase()}
                                 </div>
                               )}
@@ -402,7 +402,7 @@ const Influencers: React.FC = () => {
                             onClick={() => handlePageChange(page)}
                             className={`min-w-[2.5rem] minimal-input-sm rounded-sm text-sm font-medium transition-colors ${
                               page === currentPage
-                                ? "bg-brand-500 text-white"
+                                ? "bg-sky-500 text-white"
                                 : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-900"
                             }`}>
                             {page}

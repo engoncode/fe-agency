@@ -109,7 +109,7 @@ const Campaigns: React.FC = () => {
         </div>
         <button
           onClick={() => navigate("/campaigns/create")}
-          className="flex items-center gap-2 px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-lg transition-colors font-medium">
+          className="flex items-center gap-2 px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-lg transition-colors font-medium">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
@@ -186,7 +186,7 @@ const Campaigns: React.FC = () => {
                           onClick={() => handlePageChange(pageNum)}
                           className={`min-w-[2.25rem] minimal-input-sm rounded-sm text-sm font-medium ${
                             currentPage === pageNum
-                              ? "bg-brand-500 text-white"
+                              ? "bg-sky-500 text-white"
                               : "hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300"
                           }`}>
                           {pageNum}

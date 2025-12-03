@@ -62,9 +62,9 @@ export default function DashboardMetrics() {
           />
         </svg>
       ),
-      bgGradient: "from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20",
-      iconColor: "text-blue-600 dark:text-blue-400",
-      borderColor: "border-blue-200 dark:border-blue-800/50",
+      bgGradient: "from-sky-50 to-sky-100 dark:from-sky-900/20 dark:to-sky-800/20",
+      iconColor: "text-sky-600 dark:text-sky-400",
+      borderColor: "border-sky-200 dark:border-sky-800/50",
     },
     {
       title: "Active Campaigns",

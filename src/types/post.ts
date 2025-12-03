@@ -21,6 +21,7 @@ export interface Post {
   created_at: string;
   updated_at: string;
   engagement_rate: number;
+ 
   influencer: {
     id: number;
     user_id: number;
@@ -49,6 +50,8 @@ export interface Post {
       tiktok_access_token?: string;
       tiktok_refresh_token?: string;
       tiktok_token_expires_at?: string;
+      instagram_avatar_url?: string;
+     
     };
   };
   campaign: {

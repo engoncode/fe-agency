@@ -36,7 +36,7 @@ const CampaignDetail: React.FC = () => {
       case "active":
         return "text-green-600 bg-green-50 border-green-200 dark:text-green-400 dark:bg-green-900/20 dark:border-green-800";
       case "upcoming":
-        return "text-blue-600 bg-blue-50 border-blue-200 dark:text-blue-400 dark:bg-blue-900/20 dark:border-blue-800";
+        return "text-sky-600 bg-sky-50 border-sky-200 dark:text-sky-400 dark:bg-sky-900/20 dark:border-sky-800";
       case "draft":
         return "text-yellow-600 bg-yellow-50 border-yellow-200 dark:text-yellow-400 dark:bg-yellow-900/20 dark:border-yellow-800";
       default:
@@ -165,7 +165,7 @@ const CampaignDetail: React.FC = () => {
         </div>
         <button
           onClick={() => navigate(`/campaigns/${campaign.id}/edit`)}
-          className="flex items-center gap-2 px-4 py-2 bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition-colors font-medium">
+          className="flex items-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors font-medium">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
@@ -250,7 +250,7 @@ const CampaignDetail: React.FC = () => {
           {campaign.key_messages && campaign.key_messages.length > 0 && (
             <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
               <div className="flex items-center gap-2 mb-4">
-                <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -263,7 +263,7 @@ const CampaignDetail: React.FC = () => {
               <ul className="space-y-2">
                 {campaign.key_messages.map((message, index) => (
                   <li key={index} className="flex items-start gap-3 text-gray-700 dark:text-gray-300">
-                    <span className="inline-flex w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-800 text-blue-600 dark:text-blue-400 flex-shrink-0 items-center justify-center text-xs font-medium mt-0.5">
+                    <span className="inline-flex w-6 h-6 rounded-full bg-gray-100 dark:bg-gray-800 text-sky-600 dark:text-sky-400 flex-shrink-0 items-center justify-center text-xs font-medium mt-0.5">
                       {index + 1}
                     </span>
                     <span className="flex-1">{message}</span>
@@ -295,7 +295,7 @@ const CampaignDetail: React.FC = () => {
                       {campaign.mandatory_hashtags.map((tag, index) => (
                         <span
                           key={index}
-                          className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-blue-600 dark:text-blue-300 rounded-full text-sm font-medium">
+                          className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-sky-600 dark:text-sky-300 rounded-full text-sm font-medium">
                           {tag}
                         </span>
                       ))}
@@ -401,7 +401,7 @@ const CampaignDetail: React.FC = () => {
           {campaign.posts && campaign.posts.length > 0 && (
             <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-900 p-6">
               <div className="flex items-center gap-2 mb-4">
-                <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -489,7 +489,7 @@ const CampaignDetail: React.FC = () => {
                                     {shouldTruncate && (
                                       <button
                                         onClick={() => toggleCaption(post.id)}
-                                        className="text-xs text-blue-600 dark:text-blue-400 hover:underline">
+                                        className="text-xs text-sky-600 dark:text-sky-400 hover:underline">
                                         {isExpanded ? "Sembunyikan" : "Selengkapnya"}
                                       </button>
                                     )}
@@ -518,7 +518,7 @@ const CampaignDetail: React.FC = () => {
                                 </div>
                                 <div className="flex items-center gap-0.5">
                                   <svg
-                                    className="w-3 h-3 text-blue-500"
+                                    className="w-3 h-3 text-sky-500"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24">
@@ -626,7 +626,7 @@ const CampaignDetail: React.FC = () => {
           {/* Timeline */}
           <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
             <div className="flex items-center gap-2 mb-4">
-              <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"

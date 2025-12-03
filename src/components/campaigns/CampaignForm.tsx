@@ -284,7 +284,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                 onChange={handleChange}
                 disabled={isGeneratingAI}
                 required
-                className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+                className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
               />
               <FieldError messages={errors.campaign_name} />
             </div>
@@ -300,7 +300,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                 onChange={handleChange}
                 disabled={isGeneratingAI}
                 required
-                className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+                className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
               />
               <FieldError messages={errors.product_name} />
             </div>
@@ -317,7 +317,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               disabled={isGeneratingAI}
               required
               rows={3}
-              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
             />
             <FieldError messages={errors.campaign_goal} />
             <div className="mt-2 flex items-center gap-2">
@@ -338,7 +338,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                 onChange={handleChange}
                 disabled={isGeneratingAI}
                 rows={3}
-                className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+                className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
               />
             </div>
           </div>
@@ -461,7 +461,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               onChange={handleCategoryChange}
               required
               size={Math.min(categories.length, 6)}
-              className="w-full px-4 py-2.5 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none">
+              className="w-full px-4 py-2.5 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none">
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.id} className="py-1">
                   {cat.name}
@@ -492,7 +492,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               disabled={isGeneratingAI}
               required
               placeholder="e.g., 100K impressions, 5K engagements"
-              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
             />
             <FieldError messages={errors.kpi_target} />
           </div>
@@ -511,13 +511,13 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               onKeyPress={(e) => e.key === "Enter" && (e.preventDefault(), addKeyMessage())}
               disabled={isGeneratingAI}
               placeholder="Add key message"
-              className="flex-1 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+              className="flex-1 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
             />
             <button
               type="button"
               onClick={addKeyMessage}
               disabled={isGeneratingAI}
-              className="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-lg text-sm flex items-center gap-1 transition-colors">
+              className="px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-lg text-sm flex items-center gap-1 transition-colors">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
               </svg>
@@ -560,14 +560,14 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                   value={hashtagInput}
                   onChange={(e) => setHashtagInput(e.target.value)}
                   onKeyPress={(e) => e.key === "Enter" && (e.preventDefault(), addHashtag())}
-                  placeholder="Add hashtag (e.g., #YourBrand)"
-                  className="flex-1 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+                  placeholder="Add hashtag (e.g., #Yoursky)"
+                  className="flex-1 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
                 />
                 <button
                   type="button"
                   onClick={addHashtag}
                   disabled={isGeneratingAI}
-                  className="px-4 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-lg text-sm flex items-center gap-1 transition-colors">
+                  className="px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-lg text-sm flex items-center gap-1 transition-colors">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                   </svg>
@@ -604,7 +604,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               value={formData.mandatory_cta}
               onChange={handleChange}
               placeholder="e.g., Visit our website, Shop now"
-              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
             />
             <FieldError messages={errors.mandatory_cta} />
           </div>
@@ -619,7 +619,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
             type="button"
             onClick={addDeliverable}
             disabled={isGeneratingAI}
-            className="flex items-center gap-2 px-4 py-2 bg-brand-500 text-white rounded-lg hover:bg-brand-600 transition-colors text-sm">
+            className="flex items-center gap-2 px-4 py-2 bg-sky-500 text-white rounded-lg hover:bg-sky-600 transition-colors text-sm">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
@@ -664,7 +664,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                       onChange={(e) => updateDeliverable(index, "platform_name", e.target.value)}
                       required
                       disabled={isGeneratingAI}
-                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none">
+                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none">
                       <option value="">Select platform</option>
                       <option value="instagram">Instagram</option>
                       <option value="tiktok">TikTok</option>
@@ -680,7 +680,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                       onChange={(e) => updateDeliverable(index, "content_format", e.target.value)}
                       required
                       disabled={isGeneratingAI}
-                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none">
+                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none">
                       <option value="">Select format</option>
                       <option value="video">Video</option>
                       <option value="image">Image</option>
@@ -698,7 +698,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                       min="1"
                       required
                       disabled={isGeneratingAI}
-                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
                     />
                   </div>
 
@@ -718,7 +718,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                           )
                         }
                         placeholder="Min"
-                        className="w-1/2 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+                        className="w-1/2 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
                         disabled={isGeneratingAI}
                       />
                       <input
@@ -732,7 +732,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                           )
                         }
                         placeholder="Max"
-                        className="w-1/2 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+                        className="w-1/2 px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
                         disabled={isGeneratingAI}
                       />
                     </div>
@@ -745,7 +745,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
                       onChange={(e) => updateDeliverable(index, "notes", e.target.value)}
                       rows={2}
                       placeholder="Additional requirements or notes..."
-                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+                      className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
                       disabled={isGeneratingAI}
                     />
                   </div>
@@ -770,7 +770,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               value={formData.start_date}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
             />
             <FieldError messages={errors.start_date} />
           </div>
@@ -785,7 +785,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               value={formData.end_date}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
             />
             <FieldError messages={errors.end_date} />
           </div>
@@ -807,7 +807,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               onChange={handleChange}
               required
               placeholder="e.g., Paid, Barter, Product Seeding"
-              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
             />
             <FieldError messages={errors.compensation_type} />
           </div>
@@ -819,7 +819,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               name="content_usage_rights"
               checked={formData.content_usage_rights}
               onChange={handleChange}
-              className="w-4 h-4 text-brand-600 bg-gray-100 border-gray-300 rounded focus:ring-brand-500 dark:focus:ring-brand-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+              className="w-4 h-4 text-sky-600 bg-gray-100 border-gray-300 rounded focus:ring-sky-500 dark:focus:ring-sky-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
             <label htmlFor="content_usage_rights" className="text-sm font-medium text-gray-700 dark:text-gray-300">
               Request Content Usage Rights
@@ -843,7 +843,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               required
               rows={3}
               placeholder="List all campaign rules and requirements..."
-              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none"
+              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none"
             />
             <FieldError messages={errors.rules} />
           </div>
@@ -858,7 +858,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
               onChange={handleChange}
               required
               disabled={campaign?.status !== "draft"}
-              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-500 outline-none disabled:opacity-50 disabled:cursor-not-allowed">
+              className="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-sky-500 outline-none disabled:opacity-50 disabled:cursor-not-allowed">
               {!campaign || campaign.status === "draft" ? (
                 <>
                   <option value="draft">Draft</option>
@@ -895,7 +895,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ campaign, onSubmit, isLoadi
         <button
           type="submit"
           disabled={isLoading}
-          className="px-6 py-2 bg-brand-500 hover:bg-brand-600 text-white rounded-lg transition-colors disabled:opacity-50">
+          className="px-6 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-lg transition-colors disabled:opacity-50">
           {isLoading ? "Saving..." : campaign ? "Update Campaign" : "Create Campaign"}
         </button>
       </div>

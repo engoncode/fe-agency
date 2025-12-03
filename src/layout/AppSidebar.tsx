@@ -1,16 +1,22 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router";
+import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
 
-// Assume these icons are imported from an icon library
-import { ChevronDownIcon, GridIcon, HorizontaLDots } from "../icons";
+// Icons
+import { GridIcon } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
-import SidebarWidget from "./SidebarWidget";
+import { useAuthStore } from "../stores/authStore";
+import { useNotification } from "../components/notifications/NotificationProvider";
+import ConfirmationDialog from "../components/notifications/ConfirmationDialog";
 
-type NavItem = {
+type MenuItem = {
   name: string;
   icon: React.ReactNode;
-  path?: string;
-  subItems?: { name: string; path: string; pro?: boolean; new?: boolean }[];
+  path: string;
+};
+
+type NavGroup = {
+  header: string;
+  items: MenuItem[];
 };
 
 // SVG Icon Components
@@ -55,186 +61,101 @@ const UsersIcon = () => (
   </svg>
 );
 
-// Unused icons removed to keep sidebar focused on requested menu groups
+const FileTextIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M14 2v6h6M16 13H8M16 17H8M10 9H8"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
-const navItems: NavItem[] = [
+const TagsIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path d="M7 7h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
+const LogoutIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5m0 0l-5-5m5 5H9"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+// Navigation Groups
+const navGroups: NavGroup[] = [
   {
-    icon: <GridIcon />,
-    name: "Dashboard",
-    path: "/",
+    header: "MENU",
+    items: [{ name: "Dashboard", icon: <GridIcon />, path: "/" }],
   },
   {
-    icon: <MegaphoneIcon />,
-    name: "Campaign",
-    subItems: [
-      { name: "Campaign List", path: "/campaigns" },
-      { name: "Posts", path: "/posts" },
+    header: "CAMPAIGN",
+    items: [
+      { name: "All Campaigns", icon: <MegaphoneIcon />, path: "/campaigns" },
+      { name: "Posts", icon: <FileTextIcon />, path: "/posts" },
     ],
   },
   {
-    icon: <UsersIcon />,
-    name: "Influencer",
-    subItems: [
-      { name: "Influencer", path: "/influencers" },
-      { name: "Influencer Categories", path: "/influencer-categories" },
+    header: "INFLUENCER",
+    items: [
+      { name: "Talents", icon: <UsersIcon />, path: "/influencers" },
+      { name: "Categories", icon: <TagsIcon />, path: "/influencer-categories" },
     ],
   },
 ];
 
-const othersItems: NavItem[] = [];
-
 const AppSidebar: React.FC = () => {
   const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
   const location = useLocation();
+  const navigate = useNavigate();
+  const { logout } = useAuthStore();
+  const { showSuccess } = useNotification();
 
-  const [openSubmenu, setOpenSubmenu] = useState<{
-    type: "main" | "others";
-    index: number;
-  } | null>(null);
-  const [subMenuHeight, setSubMenuHeight] = useState<Record<string, number>>({});
-  const subMenuRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const [confirmationOpen, setConfirmationOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  // const isActive = (path: string) => location.pathname === path;
-  const isActive = useCallback((path: string) => location.pathname === path, [location.pathname]);
+  const isActive = (path: string) => location.pathname === path;
 
-  useEffect(() => {
-    let submenuMatched = false;
-    ["main", "others"].forEach((menuType) => {
-      const items = menuType === "main" ? navItems : othersItems;
-      items.forEach((nav, index) => {
-        if (nav.subItems) {
-          nav.subItems.forEach((subItem) => {
-            if (isActive(subItem.path)) {
-              setOpenSubmenu({
-                type: menuType as "main" | "others",
-                index,
-              });
-              submenuMatched = true;
-            }
-          });
-        }
-      });
-    });
-
-    if (!submenuMatched) {
-      setOpenSubmenu(null);
-    }
-  }, [location, isActive]);
-
-  useEffect(() => {
-    if (openSubmenu !== null) {
-      const key = `${openSubmenu.type}-${openSubmenu.index}`;
-      if (subMenuRefs.current[key]) {
-        setSubMenuHeight((prevHeights) => ({
-          ...prevHeights,
-          [key]: subMenuRefs.current[key]?.scrollHeight || 0,
-        }));
-      }
-    }
-  }, [openSubmenu]);
-
-  const handleSubmenuToggle = (index: number, menuType: "main" | "others") => {
-    setOpenSubmenu((prevOpenSubmenu) => {
-      if (prevOpenSubmenu && prevOpenSubmenu.type === menuType && prevOpenSubmenu.index === index) {
-        return null;
-      }
-      return { type: menuType, index };
-    });
+  const handleLogout = () => {
+    setConfirmationOpen(true);
   };
 
-  const renderMenuItems = (items: NavItem[], menuType: "main" | "others") => (
-    <ul className="flex flex-col gap-4">
-      {items.map((nav, index) => (
-        <li key={nav.name}>
-          {nav.subItems ? (
-            <button
-              onClick={() => handleSubmenuToggle(index, menuType)}
-              className={`menu-item group ${
-                openSubmenu?.type === menuType && openSubmenu?.index === index
-                  ? "menu-item-active"
-                  : "menu-item-inactive"
-              } cursor-pointer ${!isExpanded && !isHovered ? "lg:justify-center" : "lg:justify-start"}`}>
-              <span
-                className={`menu-item-icon-size  ${
-                  openSubmenu?.type === menuType && openSubmenu?.index === index
-                    ? "menu-item-icon-active"
-                    : "menu-item-icon-inactive"
-                }`}>
-                {nav.icon}
-              </span>
-              {(isExpanded || isHovered || isMobileOpen) && <span className="menu-item-text">{nav.name}</span>}
-              {(isExpanded || isHovered || isMobileOpen) && (
-                <ChevronDownIcon
-                  className={`ml-auto w-5 h-5 transition-transform duration-200 ${
-                    openSubmenu?.type === menuType && openSubmenu?.index === index ? "rotate-180 text-brand-500" : ""
-                  }`}
-                />
-              )}
-            </button>
-          ) : (
-            nav.path && (
-              <Link
-                to={nav.path}
-                className={`menu-item group ${isActive(nav.path) ? "menu-item-active" : "menu-item-inactive"}`}>
-                <span
-                  className={`menu-item-icon-size ${
-                    isActive(nav.path) ? "menu-item-icon-active" : "menu-item-icon-inactive"
-                  }`}>
-                  {nav.icon}
-                </span>
-                {(isExpanded || isHovered || isMobileOpen) && <span className="menu-item-text">{nav.name}</span>}
-              </Link>
-            )
-          )}
-          {nav.subItems && (isExpanded || isHovered || isMobileOpen) && (
-            <div
-              ref={(el) => {
-                subMenuRefs.current[`${menuType}-${index}`] = el;
-              }}
-              className="overflow-hidden transition-all duration-300"
-              style={{
-                height:
-                  openSubmenu?.type === menuType && openSubmenu?.index === index
-                    ? `${subMenuHeight[`${menuType}-${index}`]}px`
-                    : "0px",
-              }}>
-              <ul className="mt-2 space-y-1 ml-9">
-                {nav.subItems.map((subItem) => (
-                  <li key={subItem.name}>
-                    <Link
-                      to={subItem.path}
-                      className={`menu-dropdown-item ${
-                        isActive(subItem.path) ? "menu-dropdown-item-active" : "menu-dropdown-item-inactive"
-                      }`}>
-                      {subItem.name}
-                      <span className="flex items-center gap-1 ml-auto">
-                        {subItem.new && (
-                          <span
-                            className={`ml-auto ${
-                              isActive(subItem.path) ? "menu-dropdown-badge-active" : "menu-dropdown-badge-inactive"
-                            } menu-dropdown-badge`}>
-                            new
-                          </span>
-                        )}
-                        {subItem.pro && (
-                          <span
-                            className={`ml-auto ${
-                              isActive(subItem.path) ? "menu-dropdown-badge-active" : "menu-dropdown-badge-inactive"
-                            } menu-dropdown-badge`}>
-                            pro
-                          </span>
-                        )}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </li>
-      ))}
-    </ul>
-  );
+  const doLogout = async () => {
+    try {
+      setIsLoggingOut(true);
+      logout();
+      showSuccess("Logged out", "You have been logged out.");
+      navigate("/login");
+    } catch (err) {
+      // handle error if needed
+    } finally {
+      setIsLoggingOut(false);
+      setConfirmationOpen(false);
+    }
+  };
 
   return (
     <aside
@@ -244,6 +165,7 @@ const AppSidebar: React.FC = () => {
         lg:z-40 px-5`}
       onMouseEnter={() => !isExpanded && setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}>
+      {/* Logo */}
       <div className={`py-8 flex ${!isExpanded && !isHovered ? "lg:justify-center" : "justify-start"}`}>
         <Link to="/">
           {isExpanded || isHovered || isMobileOpen ? (
@@ -256,22 +178,72 @@ const AppSidebar: React.FC = () => {
           )}
         </Link>
       </div>
-      <div className="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar">
-        <nav className="mb-6">
-          <div className="flex flex-col gap-4">
-            <div>
-              <h2
-                className={`mb-4 text-xs uppercase flex leading-[20px] text-gray-400 ${
-                  !isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
-                }`}>
-                {isExpanded || isHovered || isMobileOpen ? "Menu" : <HorizontaLDots className="size-6" />}
-              </h2>
-              {renderMenuItems(navItems, "main")}
+
+      {/* Scrollable Menu Area */}
+      <div className="flex-1 flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar pb-4">
+        <nav className="flex flex-col">
+          {navGroups.map((group, groupIndex) => (
+            <div key={group.header}>
+              {/* Section Header */}
+              {(isExpanded || isHovered || isMobileOpen) && (
+                <h3
+                  className={`text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2 px-3 ${
+                    groupIndex === 0 ? "" : "mt-6"
+                  }`}>
+                  {group.header}
+                </h3>
+              )}
+
+              {/* Menu Items */}
+              <ul className="space-y-1">
+                {group.items.map((item) => (
+                  <li key={item.path}>
+                    <Link
+                      to={item.path}
+                      className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                        !isExpanded && !isHovered ? "lg:justify-center" : ""
+                      } ${
+                        isActive(item.path)
+                          ? "bg-sky-50 text-sky-700 dark:bg-sky-900/20 dark:text-sky-400"
+                          : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200"
+                      }`}>
+                      <span className="flex-shrink-0 w-5 h-5">{item.icon}</span>
+                      {(isExpanded || isHovered || isMobileOpen) && <span>{item.name}</span>}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
+          ))}
         </nav>
-        {isExpanded || isHovered || isMobileOpen ? <SidebarWidget /> : null}
       </div>
+
+      {/* Sticky Logout Footer */}
+      <div className="mt-auto sticky bottom-0 pb-6 pt-4 bg-white dark:bg-gray-900 border-t border-slate-200 dark:border-slate-700">
+        <button
+          onClick={handleLogout}
+          className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors w-full ${
+            !isExpanded && !isHovered ? "lg:justify-center" : ""
+          } text-slate-500 hover:text-red-600 hover:bg-red-50 dark:text-slate-400 dark:hover:text-red-400 dark:hover:bg-red-900/20`}>
+          <span className="flex-shrink-0 w-5 h-5">
+            <LogoutIcon />
+          </span>
+          {(isExpanded || isHovered || isMobileOpen) && <span>Logout</span>}
+        </button>
+      </div>
+
+      {/* Confirmation Dialog */}
+      <ConfirmationDialog
+        isOpen={confirmationOpen}
+        title="Confirm Logout"
+        message="Are you sure you want to logout?"
+        confirmText="Logout"
+        cancelText="Cancel"
+        type="warning"
+        isLoading={isLoggingOut}
+        onConfirm={doLogout}
+        onCancel={() => setConfirmationOpen(false)}
+      />
     </aside>
   );
 };

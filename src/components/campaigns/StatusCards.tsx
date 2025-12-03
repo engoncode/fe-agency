@@ -71,7 +71,7 @@ const StatusCards: React.FC<StatusCardsProps> = ({ statusCounts, onStatusClick, 
             className={`${card.bgColor} ${
               card.borderColor
             } border rounded-lg p-4 transition-all hover:border-slate-300 dark:hover:border-slate-700 ${
-              isActive ? "ring-2 ring-brand-500 border-brand-500" : ""
+              isActive ? "ring-2 ring-sky-500 border-sky-500" : ""
             }`}>
             <div className="flex items-center justify-between">
               <div className="text-left">

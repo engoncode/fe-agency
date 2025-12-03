@@ -238,7 +238,7 @@ const InfluencerCategories: React.FC = () => {
         </div>
         <button
           onClick={() => handleOpenModal()}
-          className="flex items-center gap-2 px-4 py-2.5 bg-slate-800 text-white rounded-lg hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 transition-colors text-sm font-medium">
+          className="flex items-center gap-2 px-4 py-2.5 bg-sky-500 text-white rounded-lg hover:bg-sky-900 dark:bg-sky-700 dark:hover:bg-sky-600 transition-colors text-sm font-medium">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
@@ -251,9 +251,9 @@ const InfluencerCategories: React.FC = () => {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
           <div className="bg-white dark:bg-gray-900 rounded-xl shadow-sm p-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-lg bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center">
                 <svg
-                  className="w-5 h-5 text-blue-600 dark:text-blue-400"
+                  className="w-5 h-5 text-sky-600 dark:text-sky-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24">
@@ -359,7 +359,7 @@ const InfluencerCategories: React.FC = () => {
                 key={category.id}
                 className="relative bg-slate-50 dark:bg-slate-800/50 rounded-lg p-4 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                 <div className="flex items-start justify-between mb-2">
-                  <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-700 dark:text-blue-400 font-semibold text-sm">
+                  <div className="w-8 h-8 rounded-lg bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center text-sky-700 dark:text-sky-400 font-semibold text-sm">
                     {index + 1}
                   </div>
                   <div className="text-right">
@@ -445,7 +445,7 @@ const InfluencerCategories: React.FC = () => {
                         type="checkbox"
                         checked={areAllVisibleSelected}
                         onChange={toggleSelectAll}
-                        className="w-4 h-4 text-brand-600 border-gray-300 rounded focus:ring-brand-500"
+                        className="w-4 h-4 text-sky-600 border-gray-300 rounded focus:ring-sky-500"
                       />
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
@@ -513,12 +513,12 @@ const InfluencerCategories: React.FC = () => {
                             type="checkbox"
                             checked={selectedIds.includes(category.id)}
                             onChange={() => toggleSelect(category.id)}
-                            className="w-4 h-4 text-brand-600 border-gray-300 rounded focus:ring-brand-500"
+                            className="w-4 h-4 text-sky-600 border-gray-300 rounded focus:ring-sky-500"
                           />
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-700 dark:text-blue-400 font-semibold">
+                            <div className="w-10 h-10 rounded-lg bg-sky-100 dark:bg-sky-900/30 flex items-center justify-center text-sky-700 dark:text-sky-400 font-semibold">
                               {category.name.charAt(0).toUpperCase()}
                             </div>
                             <div className="font-medium text-slate-800 dark:text-white">{category.name}</div>
@@ -538,7 +538,7 @@ const InfluencerCategories: React.FC = () => {
                           <div className="flex items-center justify-end gap-2">
                             <button
                               onClick={() => handleOpenModal(category)}
-                              className="p-2 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
+                              className="p-2 text-sky-600 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-900/20 rounded-lg transition-colors"
                               title="Edit">
                               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path
