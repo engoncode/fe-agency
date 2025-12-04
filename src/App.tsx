@@ -20,6 +20,7 @@ import InfluencerDetail from "./pages/InfluencerDetail";
 import InfluencerEdit from "./pages/InfluencerEdit";
 import InfluencerCategories from "./pages/InfluencerCategories";
 import Posts from "./pages/Posts";
+import Documentation from "./pages/Documentation";
 import AppLayout from "./layout/AppLayout";
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import ProtectedRoute from "./components/common/ProtectedRoute";
@@ -62,6 +63,9 @@ export default function App() {
             <Route path="/influencers/:id/edit" element={<InfluencerEdit />} />
             <Route path="/influencer-categories" element={<InfluencerCategories />} />
             <Route path="/posts" element={<Posts />} />
+
+            {/* Documentation */}
+            <Route path="/documentation" element={<Documentation />} />
 
             {/* Others Page */}
             <Route path="/profile" element={<UserProfiles />} />
