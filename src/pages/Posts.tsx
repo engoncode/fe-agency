@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import PostsTable from "../components/posts/PostsTable";
+import SubmissionTable from "../components/submissions/SubmissionTable";
 import { postService } from "../services/post.service";
 import { campaignService } from "../services/campaign.service";
 import type { Post, PostMeta } from "../types/post";
@@ -204,15 +204,14 @@ const Posts: React.FC = () => {
       </div>
 
       {/* Table */}
-      <div className="rounded-lg border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900">
-        <div className="p-6">
+
           {loading ? (
             <div className="flex items-center justify-center py-10">
               <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600"></div>
             </div>
           ) : (
             <>
-              <PostsTable posts={posts} onUpdateStatus={handleUpdateStatus} />
+              <SubmissionTable submissions={posts} onUpdateStatus={handleUpdateStatus} />
 
               {/* Pagination */}
               {meta && meta.last_page > 1 && (
@@ -241,8 +240,7 @@ const Posts: React.FC = () => {
               )}
             </>
           )}
-        </div>
-      </div>
+
 
       {/* Confirmation Dialog */}
       <ConfirmationDialog

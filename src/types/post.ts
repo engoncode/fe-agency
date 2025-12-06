@@ -15,13 +15,20 @@ export interface Post {
   like_count: number;
   comment_count: number;
   reach: number;
+  impressions?: number;
+  save_count?: number;
+  engagement_rate: number;
+  performance_score?: number;
+  bonus_points?: number;
+  performance_grade?: "S" | "A" | "B" | "C" | "D" | "F";
+  performance_status?: string;
+  duration?: number | null;
   status: "pending" | "approved" | "rejected";
   posted_at?: string | null;
   scheduled_at?: string | null;
   created_at: string;
   updated_at: string;
-  engagement_rate: number;
- 
+
   influencer: {
     id: number;
     user_id: number;
@@ -51,7 +58,6 @@ export interface Post {
       tiktok_refresh_token?: string;
       tiktok_token_expires_at?: string;
       instagram_avatar_url?: string;
-     
     };
   };
   campaign: {
@@ -68,6 +74,10 @@ export interface Post {
     live_post_date?: string | null;
     compensation_type?: string;
     content_usage_rights: boolean;
+    target_reach?: number;
+    target_engagement?: number;
+    target_engagement_rate?: string;
+    target_impressions?: number;
     description?: string;
     image?: string;
     rules?: string;
