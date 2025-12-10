@@ -2538,6 +2538,38 @@ swiper@^11.2.3:
   resolved "https://registry.yarnpkg.com/swiper/-/swiper-11.2.10.tgz#ed0b17286b56f7fe8d4b46ed61e6e0bd8daaccad"
   integrity sha512-RMeVUUjTQH+6N3ckimK93oxz6Sn5la4aDlgPzB+rBrG/smPdCTicXyhxa+woIpopz+jewEloiEE3lKo1h9w2YQ==
 
+tailadmin-react@./:
+  version "2.0.2"
+  dependencies:
+    "@fullcalendar/core" "^6.1.15"
+    "@fullcalendar/daygrid" "^6.1.15"
+    "@fullcalendar/interaction" "^6.1.15"
+    "@fullcalendar/list" "^6.1.15"
+    "@fullcalendar/react" "^6.1.15"
+    "@fullcalendar/timegrid" "^6.1.15"
+    "@react-jvectormap/core" "^1.0.4"
+    "@react-jvectormap/world" "^1.1.2"
+    apexcharts "^4.1.0"
+    axios "^1.13.2"
+    chart.js "^4.5.1"
+    clsx "^2.1.1"
+    flatpickr "^4.6.13"
+    html2canvas-pro "^1.5.13"
+    jspdf "^3.0.4"
+    lucide-react "^0.556.0"
+    react "^19.0.0"
+    react-apexcharts "^1.7.0"
+    react-chartjs-2 "^5.3.1"
+    react-dnd "^16.0.1"
+    react-dnd-html5-backend "^16.0.1"
+    react-dom "^19.0.0"
+    react-dropzone "^14.3.5"
+    react-helmet-async "^2.0.5"
+    react-router "^7.1.5"
+    swiper "^11.2.3"
+    tailwind-merge "^3.0.1"
+    zustand "^5.0.8"
+
 tailwind-merge@^3.0.1:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/tailwind-merge/-/tailwind-merge-3.4.0.tgz#5a264e131a096879965f1175d11f8c36e6b64eca"

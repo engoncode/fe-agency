@@ -114,7 +114,7 @@ const SubmissionDetailModal: React.FC<SubmissionDetailModalProps> = ({
                     alt="Post thumbnail"
                     className="w-full rounded-lg object-cover border border-slate-200 dark:border-slate-700"
                     onError={(e) => {
-                      e.currentTarget.src = "/images/placeholder.png";
+                      e.currentTarget.src = "https://placehold.co/90x190";
                     }}
                   />
                   <a
@@ -149,13 +149,13 @@ const SubmissionDetailModal: React.FC<SubmissionDetailModalProps> = ({
                   <img
                     src={
                       submission.platform === "instagram"
-                        ? getImageUrl(submission.influencer.user.instagram_avatar_url) || "/images/placeholder.png"
-                        : getImageUrl(submission.influencer.user.tiktok_avatar_url) || "/images/placeholder.png"
+                        ? getImageUrl(submission.influencer.user.instagram_avatar_url) || "https://placehold.co/90x190"
+                        : getImageUrl(submission.influencer.user.tiktok_avatar_url) || "https://placehold.co/90x190"
                     }
                     alt="avatar"
                     className="w-14 h-14 rounded-full object-cover border-2 border-white dark:border-slate-800 ring-2 ring-slate-200 dark:ring-slate-700"
                     onError={(e) => {
-                      e.currentTarget.src = "/images/placeholder.png";
+                      e.currentTarget.src = "https://placehold.co/90x190";
                     }}
                   />
                   <div>
@@ -182,11 +182,11 @@ const SubmissionDetailModal: React.FC<SubmissionDetailModalProps> = ({
                 </h3>
                 <div className="flex items-center gap-4">
                   <img
-                    src={getImageUrl(submission.campaign.image) || "/images/placeholder.png"}
+                    src={getImageUrl(submission.campaign.image) || "https://placehold.co/90x190"}
                     alt={submission.campaign.campaign_name}
                     className="w-16 h-16 rounded-lg object-cover border border-slate-200 dark:border-slate-700"
                     onError={(e) => {
-                      e.currentTarget.src = "/images/placeholder.png";
+                      e.currentTarget.src = "https://placehold.co/90x190";
                     }}
                   />
                   <div>

@@ -162,13 +162,14 @@ const SubmissionTable: React.FC<SubmissionTableProps> = ({ submissions, onUpdate
                       <img
                         src={
                           submission.platform === "instagram"
-                            ? getImageUrl(submission.influencer.user.instagram_avatar_url) || "/images/placeholder.png"
-                            : getImageUrl(submission.influencer.user.tiktok_avatar_url) || "/images/placeholder.png"
+                            ? getImageUrl(submission.influencer.user.instagram_avatar_url) ||
+                              "https://placehold.co/90x190"
+                            : getImageUrl(submission.influencer.user.tiktok_avatar_url) || "https://placehold.co/90x190"
                         }
                         alt="avatar"
                         className="w-9 h-9 rounded-full object-cover border-2 border-white dark:border-slate-800 ring-1 ring-slate-200 dark:ring-slate-700"
                         onError={(e) => {
-                          e.currentTarget.src = "/images/placeholder.png";
+                          e.currentTarget.src = "https://placehold.co/90x190";
                         }}
                       />
                       <div>
@@ -191,7 +192,7 @@ const SubmissionTable: React.FC<SubmissionTableProps> = ({ submissions, onUpdate
                         // PERUBAHAN: Menghapus class 'border' (garis tepi), tapi tetap menjaga 'rounded-lg'
                         className="w-20 h-28 rounded-lg object-cover"
                         onError={(e) => {
-                          e.currentTarget.src = "/images/placeholder.png";
+                          e.currentTarget.src = "https://placehold.co/90x190";
                         }}
                       />
                       <div className="flex-1 min-w-0">

@@ -70,11 +70,11 @@ const CampaignList: React.FC<CampaignListProps> = ({ campaigns, onDelete }) => {
                   <div className="flex items-center gap-3">
                     <div className="relative">
                       <img
-                        src={getImageUrl(campaign.image) || "/images/placeholder.png"}
+                        src={getImageUrl(campaign.image) || "https://placehold.co/90x190"}
                         alt={campaign.campaign_name}
                         className="w-40 h-20 rounded-lg object-cover"
                         onError={(e) => {
-                          e.currentTarget.src = "/images/placeholder.png";
+                          e.currentTarget.src = "https://placehold.co/90x190";
                         }}
                       />
                       {/* Platform Icon */}

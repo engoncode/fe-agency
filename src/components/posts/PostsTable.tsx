@@ -131,11 +131,11 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts, onUpdateStatus }) => {
                     <div className="flex items-center gap-3">
                       {post.campaign.image ? (
                         <img
-                          src={getImageUrl(post.campaign.image) || "/images/placeholder.png"}
+                          src={getImageUrl(post.campaign.image) || "https://placehold.co/90x190"}
                           alt={post.campaign.campaign_name}
                           className="w-12 h-12 object-cover rounded"
                           onError={(e) => {
-                            e.currentTarget.src = "/images/placeholder.png";
+                            e.currentTarget.src = "https://placehold.co/90x190";
                           }}
                         />
                       ) : (
@@ -218,7 +218,7 @@ const PostsTable: React.FC<PostsTableProps> = ({ posts, onUpdateStatus }) => {
                           alt="Post thumbnail"
                           className="w-full h-full object-cover rounded"
                           onError={(e) => {
-                            e.currentTarget.src = "/images/placeholder.png";
+                            e.currentTarget.src = "https://placehold.co/90x190";
                           }}
                         />
                         <div className="absolute inset-0 bg-black/40 rounded flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
