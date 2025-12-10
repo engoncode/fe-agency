@@ -67,41 +67,40 @@ const CampaignList: React.FC<CampaignListProps> = ({ campaigns, onDelete }) => {
                 className="border-b border-gray-200 dark:border-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                 {/* Campaign Column */}
                 <td className="py-3 px-4">
-                  <div className="flex items-center gap-3">
-                    <div className="relative">
+                  <div className="relative bg-slate-800 dark:bg-slate-900 rounded-xl overflow-hidden w-60 group">
+                    {/* Campaign Image with Overlay Text */}
+                    <div className="relative h-24">
                       <img
                         src={getImageUrl(campaign.image) || "https://placehold.co/90x190"}
                         alt={campaign.campaign_name}
-                        className="w-40 h-20 rounded-lg object-cover"
+                        className="w-full h-full object-cover"
                         onError={(e) => {
                           e.currentTarget.src = "https://placehold.co/90x190";
                         }}
                       />
-                      {/* Platform Icon */}
-                      <div className="absolute -bottom-1 -right-1 bg-white dark:bg-slate-900 rounded-full p-0.5 border border-slate-200 dark:border-slate-700">
-                        {campaign.platform_deliverables?.[0]?.platform_name === "instagram" ? (
-                          <Instagram className="w-3.5 h-3.5 text-pink-500" />
-                        ) : campaign.platform_deliverables?.[0]?.platform_name === "tiktok" ? (
-                          <div className="text-black dark:text-white">
-                            <TikTokIcon />
-                          </div>
-                        ) : (
-                          <div className="w-3.5 h-3.5" />
+
+                      {/* Gradient Overlay at Bottom */}
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-8 pb-2 px-3">
+                        <p className="text-sm font-bold text-white truncate leading-tight">{campaign.campaign_name}</p>
+                        <p className="text-xs text-white/90 truncate leading-tight">{campaign.product_name || "N/A"}</p>
+                        {campaign.platform_deliverables?.[0]?.content_format && (
+                          <p className="text-xs text-white/70 truncate leading-tight mt-0.5">
+                            {campaign.platform_deliverables[0].content_format}
+                          </p>
                         )}
                       </div>
                     </div>
 
-                    <div className="min-w-0">
-                      <div className="font-medium text-gray-900 dark:text-gray-100 truncate">
-                        {campaign.campaign_name}
-                      </div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                        {campaign.product_name || "N/A"}
-                      </div>
-                      {campaign.platform_deliverables?.[0]?.content_format && (
-                        <div className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
-                          {campaign.platform_deliverables[0].content_format}
+                    {/* Platform Icon - Outside Image, Bottom Right of Card */}
+                    <div className="absolute -bottom-2 -right-2 bg-white dark:bg-slate-800 rounded-full p-1.5 shadow-lg border-2 border-slate-200 dark:border-slate-700">
+                      {campaign.platform_deliverables?.[0]?.platform_name === "instagram" ? (
+                        <Instagram className="w-4 h-4 text-pink-500" />
+                      ) : campaign.platform_deliverables?.[0]?.platform_name === "tiktok" ? (
+                        <div className="text-black dark:text-white">
+                          <TikTokIcon />
                         </div>
+                      ) : (
+                        <div className="w-4 h-4" />
                       )}
                     </div>
                   </div>

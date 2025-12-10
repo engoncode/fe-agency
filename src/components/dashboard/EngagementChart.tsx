@@ -56,6 +56,10 @@ export default function EngagementChart() {
   const options = {
     responsive: true,
     maintainAspectRatio: false,
+    interaction: {
+      mode: "index" as const,
+      intersect: false,
+    },
     plugins: {
       legend: {
         position: "top" as const,
@@ -63,7 +67,12 @@ export default function EngagementChart() {
           color: isDark ? "#e5e7eb" : "#374151",
           font: {
             size: 12,
+            weight: 500,
+            family: "'Inter', sans-serif",
           },
+          usePointStyle: true,
+          pointStyle: "circle",
+          padding: 15,
         },
       },
       title: {
@@ -75,6 +84,9 @@ export default function EngagementChart() {
         bodyColor: isDark ? "#e5e7eb" : "#374151",
         borderColor: isDark ? "#374151" : "#e5e7eb",
         borderWidth: 1,
+        padding: 12,
+        boxPadding: 6,
+        usePointStyle: true,
         callbacks: {
           label: function (context: any) {
             let label = context.dataset.label || "";
@@ -92,22 +104,33 @@ export default function EngagementChart() {
     scales: {
       x: {
         grid: {
-          color: isDark ? "#374151" : "#f3f4f6",
+          display: false,
+          drawBorder: false,
         },
         ticks: {
           color: isDark ? "#9ca3af" : "#6b7280",
+          font: {
+            size: 11,
+            family: "'Inter', sans-serif",
+          },
         },
       },
       y: {
         beginAtZero: true,
         grid: {
-          color: isDark ? "#374151" : "#f3f4f6",
+          color: isDark ? "rgba(55, 65, 81, 0.3)" : "rgba(229, 231, 235, 0.8)",
+          drawBorder: false,
         },
         ticks: {
           color: isDark ? "#9ca3af" : "#6b7280",
+          font: {
+            size: 11,
+            family: "'Inter', sans-serif",
+          },
           callback: function (value: any) {
             return new Intl.NumberFormat().format(value);
           },
+          padding: 8,
         },
       },
     },
@@ -119,23 +142,44 @@ export default function EngagementChart() {
       {
         label: "Total Engagement",
         data: chartData.data.map((item) => item.total_engagement),
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
+        borderColor: "rgb(59, 130, 246)",
+        backgroundColor: "rgba(59, 130, 246, 0.1)",
+        fill: true,
         tension: 0.4,
+        borderWidth: 2,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        pointBackgroundColor: "rgb(59, 130, 246)",
+        pointBorderColor: "#fff",
+        pointBorderWidth: 2,
       },
       {
         label: "Total Likes",
         data: chartData.data.map((item) => item.total_likes),
-        borderColor: "rgb(75, 192, 192)",
-        backgroundColor: "rgba(75, 192, 192, 0.5)",
+        borderColor: "rgb(16, 185, 129)",
+        backgroundColor: "rgba(16, 185, 129, 0.1)",
+        fill: true,
         tension: 0.4,
+        borderWidth: 2,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        pointBackgroundColor: "rgb(16, 185, 129)",
+        pointBorderColor: "#fff",
+        pointBorderWidth: 2,
       },
       {
         label: "Total Comments",
         data: chartData.data.map((item) => item.total_comments),
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        borderColor: "rgb(244, 63, 94)",
+        backgroundColor: "rgba(244, 63, 94, 0.1)",
+        fill: true,
         tension: 0.4,
+        borderWidth: 2,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        pointBackgroundColor: "rgb(244, 63, 94)",
+        pointBorderColor: "#fff",
+        pointBorderWidth: 2,
       },
     ],
   };

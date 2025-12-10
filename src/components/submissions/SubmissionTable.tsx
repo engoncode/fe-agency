@@ -77,9 +77,6 @@ const SubmissionTable: React.FC<SubmissionTableProps> = ({ submissions, onUpdate
                 Campaign
               </th>
               <th className="py-3 px-4 text-left text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
-                Influencer
-              </th>
-              <th className="py-3 px-4 text-left text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
                 Content
               </th>
               <th className="py-3 px-4 text-left text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
@@ -96,7 +93,7 @@ const SubmissionTable: React.FC<SubmissionTableProps> = ({ submissions, onUpdate
           <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
             {!submissions || submissions.length === 0 ? (
               <tr>
-                <td colSpan={6} className="py-12 text-center text-slate-500 dark:text-slate-400">
+                <td colSpan={5} className="py-12 text-center text-slate-500 dark:text-slate-400">
                   <div className="flex flex-col items-center gap-2">
                     <svg
                       className="w-12 h-12 text-slate-300 dark:text-slate-600"
@@ -121,64 +118,38 @@ const SubmissionTable: React.FC<SubmissionTableProps> = ({ submissions, onUpdate
                   className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors duration-150">
                   {/* Campaign Column */}
                   <td className="py-3 px-4">
-                    <div className="flex items-center gap-3">
-                      <div className="relative">
+                    <div className="relative bg-slate-800 dark:bg-slate-900 rounded-xl overflow-hidden w-60 group">
+                      {/* Campaign Image with Overlay Text */}
+                      <div className="relative h-24">
                         <img
                           src={getImageUrl(submission.campaign.image) || "/images/placeholder.png"}
                           alt={submission.campaign.campaign_name}
-                          // PERUBAHAN DISINI: Menghapus class border warna, tapi tetap menjaga rounded-lg
-                          // Opsional: tambahkan 'shadow-sm' jika ingin efek bayangan super tipis
-                          className="w-60 h-20 rounded-lg object-cover"
+                          className="w-full h-full object-cover"
                           onError={(e) => {
                             e.currentTarget.src = "/images/placeholder.png";
                           }}
                         />
-                        {/* Ikon tetap pada posisi aslinya karena sudut gambar masih membulat */}
-                        <div className="absolute -bottom-1 -right-1 bg-white dark:bg-slate-900 rounded-full p-0.5 border border-slate-200 dark:border-slate-700">
-                          {submission.platform === "instagram" ? (
-                            <Instagram className="w-3.5 h-3.5 text-pink-500" />
-                          ) : (
-                            <div className="text-black dark:text-white">
-                              <TikTokIcon />
-                            </div>
-                          )}
+
+                        {/* Gradient Overlay at Bottom */}
+                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-8 pb-2 px-3">
+                          <p className="text-sm font-bold text-white truncate leading-tight">
+                            {submission.campaign.campaign_name}
+                          </p>
+                          <p className="text-xs text-white/90 truncate leading-tight">
+                            {submission.campaign.product_name || "N/A"}
+                          </p>
                         </div>
                       </div>
 
-                      <div className="min-w-0">
-                        <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate">
-                          {submission.campaign.campaign_name}
-                        </p>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
-                          {submission.campaign.product_name || "N/A"}
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-
-                  {/* Influencer Column */}
-                  <td className="py-3 px-4">
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={
-                          submission.platform === "instagram"
-                            ? getImageUrl(submission.influencer.user.instagram_avatar_url) ||
-                              "https://placehold.co/90x190"
-                            : getImageUrl(submission.influencer.user.tiktok_avatar_url) || "https://placehold.co/90x190"
-                        }
-                        alt="avatar"
-                        className="w-9 h-9 rounded-full object-cover border-2 border-white dark:border-slate-800 ring-1 ring-slate-200 dark:ring-slate-700"
-                        onError={(e) => {
-                          e.currentTarget.src = "https://placehold.co/90x190";
-                        }}
-                      />
-                      <div>
-                        <p className="text-sm font-medium text-slate-900 dark:text-slate-100">
-                          @
-                          {submission.platform === "instagram"
-                            ? submission.influencer.user.instagram_username
-                            : submission.influencer.user.tiktok_username}
-                        </p>
+                      {/* Platform Icon - Outside Image, Bottom Right of Card */}
+                      <div className="absolute -bottom-2 -right-2 bg-white dark:bg-slate-800 rounded-full p-1.5 shadow-lg border-2 border-slate-200 dark:border-slate-700">
+                        {submission.platform === "instagram" ? (
+                          <Instagram className="w-4 h-4 text-pink-500" />
+                        ) : (
+                          <div className="text-black dark:text-white">
+                            <TikTokIcon />
+                          </div>
+                        )}
                       </div>
                     </div>
                   </td>
@@ -189,13 +160,36 @@ const SubmissionTable: React.FC<SubmissionTableProps> = ({ submissions, onUpdate
                       <img
                         src={submission.thumbnail_url}
                         alt="thumbnail"
-                        // PERUBAHAN: Menghapus class 'border' (garis tepi), tapi tetap menjaga 'rounded-lg'
                         className="w-20 h-28 rounded-lg object-cover"
                         onError={(e) => {
                           e.currentTarget.src = "https://placehold.co/90x190";
                         }}
                       />
                       <div className="flex-1 min-w-0">
+                        {/* Influencer Info */}
+                        <div className="flex items-center gap-2 mb-2">
+                          <img
+                            src={
+                              submission.platform === "instagram"
+                                ? getImageUrl(submission.influencer.user.instagram_avatar_url) ||
+                                  "https://placehold.co/90x190"
+                                : getImageUrl(submission.influencer.user.tiktok_avatar_url) ||
+                                  "https://placehold.co/90x190"
+                            }
+                            alt="avatar"
+                            className="w-6 h-6 rounded-full object-cover border border-slate-200 dark:border-slate-700"
+                            onError={(e) => {
+                              e.currentTarget.src = "https://placehold.co/90x190";
+                            }}
+                          />
+                          <p className="text-xs font-medium text-slate-700 dark:text-slate-300">
+                            @
+                            {submission.platform === "instagram"
+                              ? submission.influencer.user.instagram_username
+                              : submission.influencer.user.tiktok_username}
+                          </p>
+                        </div>
+                        {/* Caption */}
                         <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2 mb-1.5">
                           {submission.caption}
                         </p>
